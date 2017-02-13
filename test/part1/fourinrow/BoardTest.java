@@ -7,19 +7,14 @@ import static part1.fourinrow.Chip.YELLOW;
 
 public class BoardTest {
     @Test
-    public void winner() throws Exception {
+    public void winner() {
         Board field = new Board(7, 6);
-        assertNotNull(field.makeTurn(3));
-        assertNotNull(field.makeTurn(4));
-        assertNotNull(field.makeTurn(2));
-        assertNotNull(field.makeTurn(5));
-        assertNotNull(field.makeTurn(1));
-        assertNotNull(field.makeTurn(6));
-        assertNotNull(field.makeTurn(0));
+        int[] turns = new int[] { 3, 4, 2, 5, 1, 6, 0};
+        for (int turn: turns) {
+            assertNotNull(field.makeTurn(turn));
+        }
         assertEquals(YELLOW, field.get(0, 0));
-        assertEquals(YELLOW, field.get(1, 0));
         assertEquals(YELLOW, field.get(2, 0));
-        assertEquals(YELLOW, field.get(3, 0));
         assertEquals(YELLOW, field.winner());
         assertTrue(field.hasFreeCells());
     }
