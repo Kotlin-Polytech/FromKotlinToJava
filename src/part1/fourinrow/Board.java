@@ -8,9 +8,9 @@ public class Board {
 
     static public final int TO_WIN_LENGTH = 4;
 
-    public final int width;
+    private final int width;
 
-    public final int height;
+    private final int height;
 
     private final Map<Cell, Chip> chips = new HashMap<>();
 
@@ -19,11 +19,6 @@ public class Board {
     public Board(int width, int height) {
         this.width = width;
         this.height = height;
-    }
-
-    void clear() {
-        chips.clear();
-        turn = Chip.YELLOW;
     }
 
     public Chip get(int x, int y) {
