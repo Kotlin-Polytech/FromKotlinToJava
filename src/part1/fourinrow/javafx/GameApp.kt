@@ -1,8 +1,10 @@
 package part1.fourinrow.javafx
 
+import javafx.application.Application
 import tornadofx.App
 
-// NB: to run this from IDEA,
-// an "Application" run configuration must be created
-// with GameApp as main class!
 class GameApp : App(GameView::class)
+
+fun main(args: Array<String>) {
+    Application.launch(GameApp::class.java, *args)
+}
