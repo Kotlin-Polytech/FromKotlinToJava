@@ -21,12 +21,21 @@ public class Board {
         this.height = height;
     }
 
+    public void clear() {
+        chips.clear();
+        turn = Chip.YELLOW;
+    }
+
     public Chip get(int x, int y) {
         return get(new Cell(x, y));
     }
 
     public Chip get(Cell cell) {
         return chips.get(cell);
+    }
+
+    public Chip getTurn() {
+        return turn;
     }
 
     public Cell makeTurn(int x) {
