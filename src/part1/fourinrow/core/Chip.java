@@ -1,4 +1,4 @@
-package part1.fourinrow;
+package part1.fourinrow.core;
 
 public enum Chip {
     YELLOW,

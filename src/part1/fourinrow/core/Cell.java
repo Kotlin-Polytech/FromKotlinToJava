@@ -1,21 +1,25 @@
-package part1.fourinrow;
+package part1.fourinrow.core;
 
-public class Cell {
-    public final int x;
+public final class Cell {
+    private final int x;
 
-    public final int y;
+    private final int y;
 
     public Cell(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public Cell plus(Cell other) {
-        return new Cell(x + other.x, y + other.y);
+    public int getX() {
+        return x;
     }
 
-    public Cell times(int arg) {
-        return new Cell(x * arg, y * arg);
+    public int getY() {
+        return y;
+    }
+
+    public Cell plus(Cell other) {
+        return new Cell(x + other.x, y + other.y);
     }
 
     @Override

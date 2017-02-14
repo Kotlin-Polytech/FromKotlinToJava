@@ -1,4 +1,4 @@
-package part1.fourinrow;
+package part1.fourinrow.core;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,7 +57,7 @@ public class Board {
     };
 
     public boolean correct(Cell cell) {
-        return cell.x >= 0 && cell.x < width && cell.y >= 0 && cell.y < height;
+        return cell.getX() >= 0 && cell.getX() < width && cell.getY() >= 0 && cell.getY() < height;
     }
 
     public Chip winner() {

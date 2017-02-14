@@ -1,9 +1,9 @@
-package part1.fourinrow;
+package part1.fourinrow.core;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static part1.fourinrow.Chip.YELLOW;
+import static part1.fourinrow.core.Chip.YELLOW;
 
 public class BoardTest {
     @Test
