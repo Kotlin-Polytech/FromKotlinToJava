@@ -5,49 +5,41 @@ import org.junit.Test
 
 class RationalTest {
     @Test
-    @Throws(Exception::class)
     fun plus() {
         assertEquals(Rational(1, 2), Rational(1, 6) + Rational(1, 3))
     }
 
     @Test
-    @Throws(Exception::class)
     operator fun unaryMinus() {
         assertEquals(Rational(1, 2), -Rational(3, -6))
     }
 
     @Test
-    @Throws(Exception::class)
     fun minus() {
         assertEquals(Rational(1, 3), Rational(1, 2) - Rational(1, 6))
     }
 
     @Test
-    @Throws(Exception::class)
     fun times() {
         assertEquals(Rational(3, 10), Rational(3, 4) * Rational(2, 5))
     }
 
     @Test
-    @Throws(Exception::class)
     fun div() {
         assertEquals(Rational(2, 5), Rational(3, 10) / Rational(3, 4))
     }
 
     @Test
-    @Throws(Exception::class)
     fun toInt() {
         assertEquals(1, Rational(3, 2).toInt().toLong())
     }
 
     @Test
-    @Throws(Exception::class)
     fun toDouble() {
         assertEquals(0.5, Rational(3, 6).toDouble(), 1e-10)
     }
 
     @Test
-    @Throws(Exception::class)
     fun equals() {
         assertEquals(Rational(1, 2), Rational(2, 4))
         assertEquals(Rational(-1, 2), Rational(2, -4))
