@@ -90,4 +90,28 @@ public class Board {
         }
         return null;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int y = height - 1; y >= 0; y--) {
+            for (int x = 0; x < width; x++) {
+                Chip chip = get(x, y);
+                if (chip == null) {
+                    sb.append("- ");
+                    continue;
+                }
+                switch (chip) {
+                    case YELLOW:
+                        sb.append("Y ");
+                        break;
+                    case RED:
+                        sb.append("r ");
+                        break;
+                }
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
 }
