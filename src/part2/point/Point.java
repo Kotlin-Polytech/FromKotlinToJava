@@ -1,5 +1,6 @@
 package part2.point;
 
+@SuppressWarnings("WeakerAccess")
 public class Point {
 
     private double x;
