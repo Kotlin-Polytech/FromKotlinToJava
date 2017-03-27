@@ -32,7 +32,9 @@ public class Point {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o instanceof Point) {
+        // Alternatives:
+        //if (o instanceof Point) {
+        if (getClass() == o.getClass()) {
             Point point = (Point) o;
             return Double.compare(point.x, x) == 0 && Double.compare(point.y, y) == 0;
         }
