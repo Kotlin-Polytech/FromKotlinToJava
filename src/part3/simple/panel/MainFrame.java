@@ -15,11 +15,11 @@ import java.awt.*;
  * @author Digitek
  */
 public class MainFrame extends JFrame {
-    MainFrame(String s) {
+    private MainFrame(String s) {
         super(s);
         setSize(600, 400);
         JPanel panel = new MainPanel();
-        this.setContentPane(panel);
+        setContentPane(panel);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -28,14 +28,14 @@ public class MainFrame extends JFrame {
     public void paint(Graphics g) {
         super.paint(g);
         g.setColor(Color.BLACK);
-        g.drawLine(0, 0, getWidth()-1, getHeight()-1);
-        g.drawLine(getWidth()-1, 0, 0, getHeight()-1);
+        g.drawLine(0, 0, getWidth() - 1, getHeight() - 1);
+        g.drawLine(getWidth() - 1, 0, 0, getHeight() - 1);
     }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new MainFrame("Простое окно Swing"));
+        SwingUtilities.invokeLater(() -> new MainFrame("Окно Swing с панелью"));
     }
 }

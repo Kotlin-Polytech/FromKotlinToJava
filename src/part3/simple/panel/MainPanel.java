@@ -9,10 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Digitek
- */
+@SuppressWarnings("WeakerAccess")
 public class MainPanel extends JPanel {
 
     public MainPanel() {
