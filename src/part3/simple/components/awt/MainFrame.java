@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+@SuppressWarnings("WeakerAccess")
 public class MainFrame extends Frame {
 
     MainFrame(String s) {

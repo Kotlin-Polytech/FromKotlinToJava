@@ -8,13 +8,9 @@ package part3.simple.hello.swing;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-/**
- *
- * @author Digitek
- */
 public class MainFrame extends JFrame {
 
-    MainFrame(String s) {
+    private MainFrame(String s) {
         super(s);
         setSize(400, 150);
         setVisible(true);

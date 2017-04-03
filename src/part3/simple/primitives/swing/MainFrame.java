@@ -19,7 +19,7 @@ import javax.swing.SwingUtilities;
  */
 public class MainFrame extends JFrame {
 
-    MainFrame(String s) {
+    private MainFrame(String s) {
         super(s);
         setSize(500, 400);
         setVisible(true);

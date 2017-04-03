@@ -18,7 +18,7 @@ import java.awt.event.WindowEvent;
  */
 public class MainFrame extends Frame {
 
-    MainFrame(String s) {
+    private MainFrame(String s) {
         super(s);
         setSize(500, 400);
         setVisible(true);

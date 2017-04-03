@@ -9,10 +9,6 @@ import java.awt.Frame;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-/**
- *
- * @author Digitek
- */
 public class MainFrame extends Frame {
 
     private MainFrame(String s) {
