@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package part3.simple.components;
+package part3.simple.components.swing;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -32,10 +32,11 @@ public class MainFrame extends JFrame {
         JCheckBox checkbox = new JCheckBox("Checkbox");
         checkbox.setBounds(100, 150, 100, 40);
         add(checkbox);
-        JComboBox choice = new JComboBox(new String[] {"Combobox 1", "Combobox 2"});
+        String[] comboStrings = {"Combobox 1", "Combobox 2"};
+        JComboBox<String> choice = new JComboBox<>(comboStrings);
         choice.setBounds(100, 200, 100, 20);
         add(choice);  
-        JList list = new JList(new String[] {"List 1", "List 2", "List 3", "List 4"});
+        JList<String> list = new JList<>(new String[] {"List 1", "List 2", "List 3", "List 4"});
         list.setBounds(100, 250, 100, 90);
         add(list);        
         setVisible(true);
