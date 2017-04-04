@@ -8,8 +8,6 @@ package part3.simple.primitives.swing;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import javax.swing.*;
 
 /**
@@ -28,7 +26,11 @@ public class MainFrame extends JFrame {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        this.setBackground(Color.LIGHT_GRAY);
+        // NB: this works in primitive cases,
+        // but generally it's not a good idea to paint something
+        // using graphic context from other components
+        // Better way is described in "panel" example
+        g = getContentPane().getGraphics();
         Color color = new Color(0, 0, 255);
         g.setColor(color);
         g.fillRect(100, 100, 100, 50);
