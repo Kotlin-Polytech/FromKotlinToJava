@@ -34,6 +34,6 @@ public class MainFrame extends JFrame {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new MainFrame("Окно Swing с панелью"));
+        SwingUtilities.invokeLater(() -> new MainFrame("Swing frame with panel"));
     }
 }

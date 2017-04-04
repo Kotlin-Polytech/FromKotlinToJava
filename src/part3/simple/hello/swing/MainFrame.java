@@ -16,10 +16,7 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new MainFrame("Простое окно Swing"));
+        SwingUtilities.invokeLater(() -> new MainFrame("Hello Swing"));
     }
 }

@@ -21,8 +21,8 @@ public class MainPanel extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
         g.setColor(Color.BLACK);
-        g.drawLine(0, 0, getWidth()-1, getHeight()-1);
-        g.drawLine(getWidth()-1, 0, 0, getHeight()-1);
+        g.drawLine(0, 0, getWidth() - 1, getHeight() - 1);
+        g.drawLine(getWidth() - 1, 0, 0, getHeight() - 1);
     }
 
 }

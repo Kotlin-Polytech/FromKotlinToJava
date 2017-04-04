@@ -5,7 +5,7 @@ import javafx.scene.layout.BorderPane
 import tornadofx.App
 import tornadofx.View
 
-class HelloView : View("Простое окно JavaFX") {
+class HelloView : View("Hello JavaFX") {
     override val root = BorderPane()
 }
 

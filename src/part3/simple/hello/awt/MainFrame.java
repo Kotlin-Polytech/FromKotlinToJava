@@ -47,10 +47,7 @@ public class MainFrame extends Frame {
         });
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        new MainFrame("Простое окно AWT");
+        new MainFrame("Hello AWT");
     }
 }

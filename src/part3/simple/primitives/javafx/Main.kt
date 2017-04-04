@@ -7,7 +7,7 @@ import javafx.scene.shape.ArcType
 import javafx.scene.text.Font
 import tornadofx.*
 
-class PrimitivesView : View("Примитивы JavaFX") {
+class PrimitivesView : View("JavaFX primitives") {
     override val root = BorderPane()
 
     init {
@@ -50,7 +50,7 @@ class PrimitivesView : View("Примитивы JavaFX") {
                         stroke = Color.RED
                         fill = Color.TRANSPARENT
                     }
-                    text("Графические примитивы") {
+                    text("Graphic primitives") {
                         x = 100.0
                         y = 75.0
                         font = Font("Serif", 24.0)

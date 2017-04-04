@@ -10,10 +10,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import javax.swing.*;
 
-/**
- *
- * @author Digitek
- */
 public class MainFrame extends JFrame {
 
     private MainFrame(String s) {
@@ -50,13 +46,10 @@ public class MainFrame extends JFrame {
         g.drawArc(150, 300, 50, 50, 180, 90);
         g.setColor(new Color(0, 128, 0));
         g.setFont(new Font("Serif", Font.ITALIC, 24));
-        g.drawString("Графические примитивы", 100, 75);
+        g.drawString("Graphic primitives", 100, 75);
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new MainFrame("Демонстрация примитивов Swing"));
+        SwingUtilities.invokeLater(() -> new MainFrame("Swing primitives demo"));
     }   
 }

@@ -7,10 +7,6 @@ package part3.simple.components.swing;
 
 import javax.swing.*;
 
-/**
- *
- * @author Digitek
- */
 public class MainFrame extends JFrame {
 
     private MainFrame(String s) {
@@ -37,11 +33,8 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new MainFrame("Компоненты Swing"));
+        SwingUtilities.invokeLater(() -> new MainFrame("Swing components"));
     }
 
 }
