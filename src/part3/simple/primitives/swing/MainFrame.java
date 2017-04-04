@@ -25,6 +25,7 @@ public class MainFrame extends JFrame {
         // NB: this works in primitive cases,
         // but generally it's not a good idea to paint something
         // using graphic context from other components
+        // E.g. we cannot change background color this way
         // Better way is described in "panel" example
         g = getContentPane().getGraphics();
         Color color = new Color(0, 0, 255);
