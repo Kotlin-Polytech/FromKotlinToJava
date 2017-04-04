@@ -5,13 +5,7 @@
 
 package part3.simple.components.swing;
 
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 /**
  *
@@ -19,7 +13,7 @@ import javax.swing.SwingUtilities;
  */
 public class MainFrame extends JFrame {
 
-    MainFrame(String s) {
+    private MainFrame(String s) {
         super(s);
         setSize(400, 400);
         setLayout(null);
@@ -40,7 +34,7 @@ public class MainFrame extends JFrame {
         list.setBounds(100, 250, 100, 90);
         add(list);        
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     /**

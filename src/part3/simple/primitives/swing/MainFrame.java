@@ -10,8 +10,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 /**
  *
@@ -23,18 +22,13 @@ public class MainFrame extends JFrame {
         super(s);
         setSize(500, 400);
         setVisible(true);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent ev) {
-                System.exit(0);
-            }
-        });
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     @Override
     public void paint(Graphics g) {
-        this.setBackground(Color.LIGHT_GRAY);
         super.paint(g);
+        this.setBackground(Color.LIGHT_GRAY);
         Color color = new Color(0, 0, 255);
         g.setColor(color);
         g.fillRect(100, 100, 100, 50);

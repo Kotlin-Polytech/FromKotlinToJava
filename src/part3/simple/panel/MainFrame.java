@@ -5,9 +5,7 @@
 
 package part3.simple.panel;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -21,7 +19,7 @@ public class MainFrame extends JFrame {
         JPanel panel = new MainPanel();
         setContentPane(panel);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     @Override

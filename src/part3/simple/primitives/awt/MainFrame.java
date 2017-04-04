@@ -32,8 +32,8 @@ public class MainFrame extends Frame {
     
     @Override
     public void paint(Graphics g) {
-        this.setBackground(Color.LIGHT_GRAY);
         super.paint(g);
+        this.setBackground(Color.LIGHT_GRAY);
         Color color = new Color(0, 0, 255);
         g.setColor(color);
         g.fillRect(100, 100, 100, 50);

@@ -5,8 +5,7 @@
 
 package part3.simple.hello.swing;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 public class MainFrame extends JFrame {
 
@@ -14,7 +13,7 @@ public class MainFrame extends JFrame {
         super(s);
         setSize(400, 150);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     /**
