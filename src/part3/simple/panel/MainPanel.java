@@ -18,8 +18,8 @@ public class MainPanel extends JPanel {
     }
 
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         g.setColor(Color.BLACK);
         g.drawLine(0, 0, getWidth() - 1, getHeight() - 1);
         g.drawLine(getWidth() - 1, 0, 0, getHeight() - 1);
