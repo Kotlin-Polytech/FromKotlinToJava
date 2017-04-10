@@ -6,6 +6,8 @@ import java.util.Calendar;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import static java.lang.Math.PI;
+
 /**
  * Панель с часами
  */
@@ -37,9 +39,9 @@ public class ClockPanel extends JPanel {
         final int minute = calendar.get(Calendar.MINUTE);
         final int second = calendar.get(Calendar.SECOND);
 
-        final double hourAngle = hour * Math.PI / 6 + minute * Math.PI / 360;
-        final double minuteAngle = minute * Math.PI / 30 + second * Math.PI / 1800;
-        final double secondAngle = second * Math.PI / 30;
+        final double hourAngle = hour * PI / 6 + minute * PI / 360;
+        final double minuteAngle = minute * PI / 30 + second * PI / 1800;
+        final double secondAngle = second * PI / 30;
 
         final int width = getWidth();
         final int height = getHeight();
