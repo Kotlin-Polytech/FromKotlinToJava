@@ -6,8 +6,6 @@
 package part3.painting.ball;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
 
 /**
  * @author Digitek
@@ -17,29 +15,26 @@ public class Ball {
     private int x, y;
     private int dx, dy;
     private int radius;
-    private Component container;
     private Color color;
 
-    public Ball(int x, int y, int dx, int dy, int radius,
-                Component container, Color color) {
+    public Ball(int x, int y, int dx, int dy, int radius, Color color) {
         this.x = x;
         this.y = y;
         this.dx = dx;
         this.dy = dy;
         this.radius = radius;
-        this.container = container;
         this.color = color;
     }
 
-    public void step() {
+    public void step(int xLimit, int yLimit) {
         x += dx;
         y += dy;
-        if (x >= container.getWidth() - radius) {
-            x = container.getWidth() - radius - 1;
+        if (x >= xLimit - radius) {
+            x = xLimit - radius - 1;
             dx = -dx;
         }
-        if (y >= container.getHeight() - radius) {
-            y = container.getHeight() - radius - 1;
+        if (y >= yLimit - radius) {
+            y = yLimit - radius - 1;
             dy = -dy;
         }
         if (x < radius) {
@@ -52,8 +47,19 @@ public class Ball {
         }
     }
 
-    public void paint(Graphics g) {
-        g.setColor(color);
-        g.fillOval(x - radius, y - radius, 2 * radius, 2 * radius);
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getRadius() {
+        return radius;
+    }
+
+    public Color getColor() {
+        return color;
     }
 }

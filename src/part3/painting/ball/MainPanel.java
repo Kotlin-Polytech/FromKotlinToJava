@@ -7,7 +7,6 @@ package part3.painting.ball;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
 import javax.swing.JPanel;
@@ -19,11 +18,11 @@ class MainPanel extends JPanel {
     public MainPanel() {
         super();
         setBackground(Color.BLACK);
-        ball[0] = new Ball(50, 150, 1, 2, 10, this, Color.YELLOW);
-        ball[1] = new Ball(50, 50, 1, -2, 10, this, Color.GREEN);
+        ball[0] = new Ball(50, 150, 1, 2, 10, Color.YELLOW);
+        ball[1] = new Ball(100, 50, 1, -2, 10, Color.GREEN);
         ActionListener timerListener = e -> {
             for (Ball b : ball)
-                b.step();
+                b.step(getWidth(), getHeight());
             repaint();
         };
         Timer timer = new Timer(20, timerListener);
@@ -34,6 +33,12 @@ class MainPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         for (Ball b: ball)
-            b.paint(g);
+            paintBall(g, b);
+    }
+
+    private void paintBall(Graphics g, Ball b) {
+        g.setColor(b.getColor());
+        int radius = b.getRadius();
+        g.fillOval(b.getX() - radius, b.getY() - radius, 2 * radius, 2 * radius);
     }
 }
