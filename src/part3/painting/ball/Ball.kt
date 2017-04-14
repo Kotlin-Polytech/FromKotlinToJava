@@ -29,15 +29,9 @@ class Ball(var x: Int, var y: Int,
 
     fun touch(ddx: Int, ddy: Int) {
         dx += ddx
-        if (dx > 20)
-            dx = 20
-        if (dx < -20)
-            dx = -20
+        dx = maxOf(-20, minOf(20, dx))
         dy += ddy
-        if (dy > 20)
-            dy = 20
-        if (dy < -20)
-            dy = -20
+        dy = maxOf(-20, minOf(20, dy))
     }
 
     fun inside(px: Int, py: Int) =
