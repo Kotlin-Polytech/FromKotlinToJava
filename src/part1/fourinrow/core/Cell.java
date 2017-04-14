@@ -38,4 +38,9 @@ public final class Cell {
         result = 19 * result + x;
         return 19 * result + y;
     }
+
+    @Override
+    public String toString() {
+        return "" + x + ":" + y;
+    }
 }
