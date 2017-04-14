@@ -2,33 +2,57 @@ package part3.painting.ball;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import javax.swing.Timer;
 import javax.swing.JPanel;
 
 @SuppressWarnings("WeakerAccess")
 class MainPanel extends JPanel {
-    private Ball[] ball = new Ball[2];
+    private final Ball ball, controlledBall;
+    private boolean hold;
 
     public MainPanel() {
         super();
         setBackground(Color.BLACK);
-        ball[0] = new Ball(50, 150, 1, 2, 10, Color.YELLOW);
-        ball[1] = new Ball(100, 50, 1, -2, 10, Color.GREEN);
+        ball = new Ball(50, 150, 1, 2, 10, Color.YELLOW);
+        hold = false;
+        controlledBall = new Ball(250, 200, 2, 1, 7, Color.BLUE);
         ActionListener timerListener = e -> {
-            for (Ball b : ball)
-                b.step(getWidth(), getHeight());
+            if (!hold)
+                ball.step(getWidth(), getHeight());
+            controlledBall.step(getWidth(), getHeight());
             repaint();
         };
+        MouseListener mouseListener = new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1)
+                    hold = ball.inside(e.getX(), e.getY());
+            }
+
+            public void mouseReleased(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1)
+                    hold = false;
+            }
+        };
+        this.addMouseListener(mouseListener);
+        this.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (hold) {
+                    ball.setX(e.getX());
+                    ball.setY(e.getY());
+                }
+            }
+        });
         Timer timer = new Timer(20, timerListener);
         timer.start();
     }
 
     @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        for (Ball b: ball)
-            paintBall(g, b);
+    public void paint(Graphics g) {
+        super.paint(g);
+        paintBall(g, ball);
+        paintBall(g, controlledBall);
     }
 
     private void paintBall(Graphics g, Ball b) {
@@ -36,4 +60,9 @@ class MainPanel extends JPanel {
         int radius = b.getRadius();
         g.fillOval(b.getX() - radius, b.getY() - radius, 2 * radius, 2 * radius);
     }
+
+    public void touchBall(int dx, int dy) {
+        controlledBall.touch(dx, dy);
+    }
 }
+
