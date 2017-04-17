@@ -15,19 +15,25 @@ public class FieldPanel extends JPanel {
 
     static private final int HEIGHT = 6;
 
-    private final Board board = new Board(WIDTH, HEIGHT);
-
     private final Map<Cell, CellPanel> cellPanelMap = new HashMap<>();
 
     public FieldPanel() {
         setLayout(new GridLayout(HEIGHT, WIDTH));
-        for (int y = 0; y < HEIGHT; y++) {
+        Board board = new Board(WIDTH, HEIGHT);
+        for (int y = HEIGHT - 1; y >= 0; y--) {
             for (int x = 0; x < WIDTH; x++) {
                 Cell cell = new Cell(x, y);
-                CellPanel cellPanel = new CellPanel(cell, board);
+                CellPanel cellPanel = new CellPanel(cell, board, this);
                 cellPanelMap.put(cell, cellPanel);
                 add(cellPanel);
             }
+        }
+    }
+
+    void repaintLower(Cell cell) {
+        for (int y = cell.getY() - 1; y >= 0; y--) {
+            CellPanel cellPanel = cellPanelMap.get(new Cell(cell.getX(), y));
+            cellPanel.repaint();
         }
     }
 }
