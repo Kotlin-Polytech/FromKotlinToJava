@@ -5,7 +5,11 @@ import java.awt.*;
 
 public class MainFrame extends JFrame {
 
-    private MainFrame() {
+    public MainFrame() {
+        this(true, true);
+    }
+
+    public MainFrame(boolean yellowHuman, boolean redHuman) {
         super("Four in a row");
         setSize(600, 400);
         setLayout(new BorderLayout());
