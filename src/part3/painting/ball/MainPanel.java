@@ -12,7 +12,6 @@ class MainPanel extends JPanel {
     private boolean hold;
 
     public MainPanel() {
-        super();
         setBackground(Color.BLACK);
         ball = new Ball(50, 150, 1, 2, 10, Color.YELLOW);
         hold = false;
@@ -49,8 +48,8 @@ class MainPanel extends JPanel {
     }
 
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         paintBall(g, ball);
         paintBall(g, controlledBall);
     }
