@@ -1,8 +1,10 @@
 package part1.fourinrow.swing;
 
+import org.jetbrains.annotations.NotNull;
 import part1.fourinrow.core.Board;
 import part1.fourinrow.core.Cell;
 import part1.fourinrow.core.Chip;
+import part1.fourinrow.core.ComputerPlayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,8 +24,14 @@ public class BoardPanel extends JPanel {
 
     private final JLabel statusLabel;
 
-    public BoardPanel(JLabel statusLabel) {
+    private final ComputerPlayer yellowComputer;
+
+    private final ComputerPlayer redComputer;
+
+    public BoardPanel(JLabel statusLabel, boolean yellowHuman, boolean redHuman) {
         this.statusLabel = statusLabel;
+        yellowComputer = yellowHuman ? null : new ComputerPlayer(board);
+        redComputer = redHuman ? null : new ComputerPlayer(board);
         setLayout(new GridLayout(HEIGHT, WIDTH));
         for (int y = HEIGHT - 1; y >= 0; y--) {
             for (int x = 0; x < WIDTH; x++) {
@@ -33,9 +41,22 @@ public class BoardPanel extends JPanel {
                 add(cellPanel);
             }
         }
+        updateContent(new Cell(0, 0));
     }
 
-    void updateContent(Cell cell) {
+    void updateContent(@NotNull Cell cell) {
+        ComputerPlayer playerToMakeTurn = board.getTurn() == Chip.YELLOW ? yellowComputer : redComputer;
+        if (playerToMakeTurn != null) {
+            ComputerPlayer.EvaluatedTurn turn = playerToMakeTurn.bestTurn(2);
+            Integer x = turn.getTurn();
+            if (x != null) {
+                board.makeTurn(x);
+                for (int y = board.getHeight() - 1; y >= 0; y--) {
+                    CellPanel cellPanel = cellPanelMap.get(new Cell(x, y));
+                    cellPanel.repaint();
+                }
+            }
+        }
         for (int y = cell.getY() - 1; y >= 0; y--) {
             CellPanel cellPanel = cellPanelMap.get(new Cell(cell.getX(), y));
             cellPanel.repaint();

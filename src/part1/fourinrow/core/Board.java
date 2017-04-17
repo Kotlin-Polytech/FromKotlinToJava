@@ -114,4 +114,25 @@ public class Board {
         }
         return sb.toString();
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void takeTurnBack(int x) {
+        for (int y = height - 1; y >= 0; y--) {
+            Cell cell = new Cell(x, y);
+            Chip chip = get(cell);
+            if (chip != null) {
+                chips.remove(cell);
+                turn = turn.opposite();
+                return;
+            }
+        }
+
+    }
 }

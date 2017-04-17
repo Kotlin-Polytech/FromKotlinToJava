@@ -22,6 +22,10 @@ public final class Cell {
         return new Cell(x + other.x, y + other.y);
     }
 
+    public Cell times(int other) {
+        return new Cell(x * other, y * other);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
