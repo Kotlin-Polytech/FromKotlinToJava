@@ -16,9 +16,9 @@ public class CellPanel extends JPanel {
 
     private final Board board;
 
-    private final FieldPanel parent;
+    private final BoardPanel parent;
 
-    public CellPanel(Cell cell, Board board, FieldPanel parent) {
+    public CellPanel(Cell cell, Board board, BoardPanel parent) {
         this.cell = cell;
         this.board = board;
         this.parent = parent;

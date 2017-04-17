@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings("WeakerAccess")
-public class FieldPanel extends JPanel {
+public class BoardPanel extends JPanel {
 
     static private final int WIDTH = 7;
 
@@ -17,7 +17,7 @@ public class FieldPanel extends JPanel {
 
     private final Map<Cell, CellPanel> cellPanelMap = new HashMap<>();
 
-    public FieldPanel() {
+    public BoardPanel() {
         setLayout(new GridLayout(HEIGHT, WIDTH));
         Board board = new Board(WIDTH, HEIGHT);
         for (int y = HEIGHT - 1; y >= 0; y--) {

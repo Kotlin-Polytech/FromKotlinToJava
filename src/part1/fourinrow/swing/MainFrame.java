@@ -9,7 +9,7 @@ public class MainFrame extends JFrame {
         super("Four in a row");
         setSize(600, 400);
         setLayout(new BorderLayout());
-        add(new FieldPanel(), BorderLayout.CENTER);
+        add(new BoardPanel(), BorderLayout.CENTER);
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
