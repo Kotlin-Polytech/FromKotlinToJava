@@ -9,7 +9,9 @@ public class MainFrame extends JFrame {
         super("Four in a row");
         setSize(600, 400);
         setLayout(new BorderLayout());
-        add(new BoardPanel(), BorderLayout.CENTER);
+        JLabel statusLabel = new JLabel("Yellow, Make your turn");
+        add(statusLabel, BorderLayout.SOUTH);
+        add(new BoardPanel(statusLabel), BorderLayout.CENTER);
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
