@@ -242,6 +242,7 @@ public class VoyagerFrame extends JFrame {
                     voyagerPanel.openWorldFromFile(currentFile);
                 repaint();
                 this.setTitle("Коммивояжер - " + currentFile.getName());
+                undoManager.discardAllEdits();
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "Ошибка открытия файла: " +
                         ex.getMessage());
@@ -295,6 +296,7 @@ public class VoyagerFrame extends JFrame {
                             ex.getMessage());
                 }
             }
+            undoManager.discardAllEdits();
         }
     }
 
