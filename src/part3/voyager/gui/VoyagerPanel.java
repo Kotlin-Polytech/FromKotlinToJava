@@ -6,9 +6,7 @@ import part3.voyager.world.City;
 import part3.voyager.world.World;
 
 import java.awt.Graphics;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -84,6 +82,14 @@ class VoyagerPanel extends JPanel implements InfoListener {
             }
         };
         addMouseListener(mouseListener);
+
+        MouseMotionListener mouseMotionListener = new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                onDrag(e);
+            }
+        };
+        addMouseMotionListener(mouseMotionListener);
     }
 
     /**
@@ -159,7 +165,7 @@ class VoyagerPanel extends JPanel implements InfoListener {
     private void onPressSelect(int x, int y) {
         City city = world.getNearestCity(x, y);
         if (city != null &&
-                city.getDistanceSquare(x, y) <= CITY_EXT_RADIUS * CITY_EXT_RADIUS) {
+            city.getDistanceSquare(x, y) <= CITY_EXT_RADIUS * CITY_EXT_RADIUS) {
             // Если удалось выбрать город
             currentCity = city;
             currentListener.currentCityChanged(city);
@@ -233,6 +239,15 @@ class VoyagerPanel extends JPanel implements InfoListener {
             if (mode == Mode.SELECT)
                 onPressRemove(e.getX(), e.getY());
         }
+    }
+
+    private void onDrag(MouseEvent e) {
+        if (mode != Mode.SELECT ||
+            currentCity == null) {
+            return;
+        }
+        currentCity.setCoord(e.getX(), e.getY());
+        repaint();
     }
 
     /**
@@ -382,15 +397,6 @@ class VoyagerPanel extends JPanel implements InfoListener {
     }
 
     /**
-     * Получение мира
-     *
-     * @return мир
-     */
-    public World getWorld() {
-        return world;
-    }
-
-    /**
      * Рисуем заданный город
      *
      * @param g    графический контекст
@@ -429,9 +435,9 @@ class VoyagerPanel extends JPanel implements InfoListener {
         final City finish = way.getFinish();
         if (Math.abs(finish.getX() - start.getX()) >=
                 Math.abs(finish.getY() - start.getY())) {
-            dy = 1;
+            dy = 5;
         } else {
-            dx = 1;
+            dx = 5;
         }
         switch (way.getKind()) {
             case BUS:
