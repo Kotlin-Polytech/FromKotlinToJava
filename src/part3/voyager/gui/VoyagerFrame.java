@@ -115,14 +115,14 @@ public class VoyagerFrame extends JFrame {
         JToolBar toolbar = new JToolBar();
         toolbar.setBorder(new BevelBorder(BevelBorder.RAISED));
         toolbar.addSeparator();
-        JButton openButton = new JButton(new ImageIcon("open.png"));
+        JButton openButton = new JButton(new ImageIcon("files/open.png"));
         openButton.addActionListener(openListener);
         toolbar.add(openButton);
-        JButton saveButton = new JButton(new ImageIcon("save.png"));
+        JButton saveButton = new JButton(new ImageIcon("files/save.png"));
         saveButton.addActionListener(saveListener);
         toolbar.add(saveButton);
         toolbar.addSeparator();
-        JButton quitButton = new JButton(new ImageIcon("quit.png"));
+        JButton quitButton = new JButton(new ImageIcon("files/quit.png"));
         quitButton.addActionListener(quitListener);
         toolbar.add(quitButton);
         this.add(toolbar, BorderLayout.NORTH);
