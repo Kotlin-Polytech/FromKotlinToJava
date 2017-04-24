@@ -193,34 +193,6 @@ public class VoyagerFrame extends JFrame {
     }
 
     /**
-     * Переход в полноэкранный режим и обратно
-     *
-     * @param on true - включить, false - выключить
-     */
-    private void onFullScreen(boolean on) {
-        // Получение устройства
-        GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice device = environment.getDefaultScreenDevice();
-        if (on) {
-            //setUndecorated(true);
-            // Игнорирование перерисовки
-            setIgnoreRepaint(true);
-            // Выключить изменение размера
-            setResizable(false);
-            // Перейти в полноэкранный режим
-            device.setFullScreenWindow(this);
-        } else {
-            // Выключить полноэкранный режим
-            device.setFullScreenWindow(null);
-            //setUndecorated(false);
-            // Не игнорировать перерисовку
-            setIgnoreRepaint(false);
-            // Включить изменение размера
-            setResizable(true);
-        }
-    }
-
-    /**
      * Открыть файл
      */
     private void onOpen() {
@@ -304,7 +276,6 @@ public class VoyagerFrame extends JFrame {
      * Обработчик выхода
      */
     private void onQuit() {
-        onFullScreen(false);
         String[] vars = {"Да", "Нет"};
         int result = JOptionPane.showOptionDialog(this, "Действительно выйти?",
                 "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
