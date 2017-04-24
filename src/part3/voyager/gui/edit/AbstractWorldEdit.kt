@@ -12,9 +12,7 @@ abstract class AbstractWorldEdit(val world: World) : UndoableEdit {
 
     override fun canUndo() = true
 
-    override fun replaceEdit(anEdit: UndoableEdit?): Boolean {
-        throw UnsupportedOperationException("Should never be called")
-    }
+    override fun replaceEdit(anEdit: UndoableEdit?) = false
 
     override fun die() {
     }
