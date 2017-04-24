@@ -3,6 +3,7 @@ package part3.voyager.gui;
 import java.awt.Color;
 
 import part3.voyager.gui.edit.CityCreation;
+import part3.voyager.gui.edit.WayCreation;
 import part3.voyager.world.City;
 import part3.voyager.world.World;
 
@@ -151,6 +152,7 @@ class VoyagerPanel extends JPanel implements InfoListener {
                 Way newWay = new Way(startCity, finishCity, newWayKind,
                         1000, 2);
                 world.addWay(newWay);
+                undoManager.addEdit(new WayCreation(newWay, world));
                 currentCity = finishCity;
                 currentListener.currentCityChanged(finishCity);
                 currentWay = newWay;
