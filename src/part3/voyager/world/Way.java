@@ -16,6 +16,7 @@ import org.jdom.Element;
  *
  * @author Михаил Глухих
  */
+@SuppressWarnings("WeakerAccess")
 public class Way implements Externalizable {
 
     /**
@@ -63,7 +64,6 @@ public class Way implements Externalizable {
         }
     }
 
-    ;
     /**
      * Начало и конец
      */

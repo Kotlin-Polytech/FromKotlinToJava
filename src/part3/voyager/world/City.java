@@ -16,6 +16,7 @@ import org.jdom.Element;
  *
  * @author Михаил Глухих
  */
+@SuppressWarnings("WeakerAccess")
 public class City implements Externalizable {
     /**
      * Имя города

@@ -12,6 +12,7 @@ import part3.voyager.world.Way;
  * выбора текущего объекта
  * @author Михаил Глухих
  */
+@SuppressWarnings("WeakerAccess")
 public interface CurrentListener {
     /**
      * Обработчик выбора текущего города

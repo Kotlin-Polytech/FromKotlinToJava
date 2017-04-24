@@ -7,6 +7,7 @@ import part3.voyager.world.Way.WayKind;
  * изменения свойств текущего объекта
  * @author Михаил Глухих
  */
+@SuppressWarnings("WeakerAccess")
 public interface InfoListener {
 
     /**

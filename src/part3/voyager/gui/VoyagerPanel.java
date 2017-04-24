@@ -27,7 +27,8 @@ import part3.voyager.world.Way.WayKind;
  *
  * @author Михаил Глухих
  */
-class MainPanel extends JPanel implements InfoListener {
+@SuppressWarnings("WeakerAccess")
+class VoyagerPanel extends JPanel implements InfoListener {
 
     /**
      * Внутренний радиус круга города
@@ -239,7 +240,7 @@ class MainPanel extends JPanel implements InfoListener {
      *
      * @param listener слушатель изменения текущего объекта
      */
-    public MainPanel(CurrentListener listener) {
+    public VoyagerPanel(CurrentListener listener) {
         super();
         currentListener = listener;
         world = new World();
@@ -256,26 +257,6 @@ class MainPanel extends JPanel implements InfoListener {
         currentListener = listener;
         currentListener.currentCityChanged(currentCity);
         currentListener.currentWayChanged(currentWay);
-    }
-
-    /**
-     * Добавление города
-     *
-     * @param city новый город
-     */
-    public void addCity(City city) {
-        world.addCity(city);
-        repaint();
-    }
-
-    /**
-     * Добавление пути
-     *
-     * @param way новый путь
-     */
-    public void addWay(Way way) {
-        world.addWay(way);
-        repaint();
     }
 
     /**
@@ -303,8 +284,8 @@ class MainPanel extends JPanel implements InfoListener {
      * Прочитать мир из заданного файла
      *
      * @param file файл с сохраненным миром
-     * @throws java.io.IOException
-     * @throws java.lang.ClassNotFoundException
+     * @throws java.io.IOException              если файл не существует или недоступен
+     * @throws java.lang.ClassNotFoundException при ошибке сериализации
      */
     public void openWorldFromFile(File file) throws IOException, ClassNotFoundException {
         ObjectInputStream inputStream = new ObjectInputStream(
@@ -328,7 +309,7 @@ class MainPanel extends JPanel implements InfoListener {
      * Сохранить мир в заданный файл
      *
      * @param file файл, куда сохраняется мир
-     * @throws java.io.IOException
+     * @throws java.io.IOException при ошибке создания файла
      */
     public void saveWorldToFile(File file) throws IOException {
         ObjectOutputStream outputStream = new ObjectOutputStream(
@@ -477,8 +458,8 @@ class MainPanel extends JPanel implements InfoListener {
      * @param g графический контекст
      */
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         for (City city : world.getCities())
             paintCity(g, city);
         for (Way way : world.getWays())

@@ -1,9 +1,8 @@
 package part3.voyager.gui;
 
 import part3.voyager.world.City;
+
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.BoxLayout;
@@ -13,29 +12,40 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+
 import part3.voyager.world.Way;
 import part3.voyager.world.Way.WayKind;
 
 /**
  * Панель информации отображает данные о текущем объекте,
  * обрабатывает события изменения текущего объекта
+ *
  * @author Михаил Глухих
  */
+@SuppressWarnings("WeakerAccess")
 public class InfoPanel extends JPanel implements CurrentListener {
-    /** Текстовое поле */
+    /**
+     * Текстовое поле
+     */
     private JTextField cityName;
-    /** Список выбора */
+    /**
+     * Список выбора
+     */
     private JComboBox wayKind;
-    /** Счетчик */
+    /**
+     * Счетчик
+     */
     private JSpinner wayCost;
     private JSpinner wayTime;
 
-    /** Слушатель изменения атрибутов */
+    /**
+     * Слушатель изменения атрибутов
+     */
     private InfoListener infoListener;
 
-    /** Инициализация слушателей всех событий */
+    /**
+     * Инициализация слушателей всех событий
+     */
     private void initListeners() {
         // Изменение имени города
         cityName.addKeyListener(new KeyAdapter() {
@@ -46,30 +56,25 @@ public class InfoPanel extends JPanel implements CurrentListener {
             }
         });
         // Изменение типа пути
-        wayKind.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (infoListener != null)
-                    infoListener.wayKindChanged(getWayKind());
-            }
+        wayKind.addActionListener(e -> {
+            if (infoListener != null)
+                infoListener.wayKindChanged(getWayKind());
         });
         // Изменение стоимости пути
-        wayCost.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                if (infoListener != null)
-                    infoListener.wayCostChanged((Integer)wayCost.getValue());
-            }
+        wayCost.addChangeListener(e -> {
+            if (infoListener != null)
+                infoListener.wayCostChanged((Integer) wayCost.getValue());
         });
         // Изменение времени в пути
-        wayTime.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                if (infoListener != null)
-                    infoListener.wayTimeChanged((Integer)wayTime.getValue());
-            }
+        wayTime.addChangeListener(e -> {
+            if (infoListener != null)
+                infoListener.wayTimeChanged((Integer) wayTime.getValue());
         });
     }
 
     /**
      * Конструктор
+     *
      * @param listener слушатель изменения атрибутов
      */
     public InfoPanel(InfoListener listener) {
@@ -84,12 +89,12 @@ public class InfoPanel extends JPanel implements CurrentListener {
         add(cityName);
         JLabel kindLabel = new JLabel("Вид пути");
         add(kindLabel);
-        String[] kindNames = { 
-            WayKind.BUS.toString(),
-            WayKind.TRAIN.toString(),
-            WayKind.AIRCRAFT.toString()
+        String[] kindNames = {
+                WayKind.BUS.toString(),
+                WayKind.TRAIN.toString(),
+                WayKind.AIRCRAFT.toString()
         };
-        wayKind = new JComboBox(kindNames);
+        wayKind = new JComboBox<>(kindNames);
         wayKind.setMaximumSize(new Dimension(300, 25));
         add(wayKind);
         JLabel costLabel = new JLabel("Стоимость пути");
@@ -108,6 +113,7 @@ public class InfoPanel extends JPanel implements CurrentListener {
 
     /**
      * Переустановка слушателя
+     *
      * @param listener новый слушатель изменения атрибутов
      */
     public void setListener(InfoListener listener) {
@@ -115,15 +121,8 @@ public class InfoPanel extends JPanel implements CurrentListener {
     }
 
     /**
-     * Получение имени города
-     * @return имя города
-     */
-    public String getCityName() {
-        return cityName.getText();
-    }
-
-    /**
      * Установка имени города
+     *
      * @param name имя города
      */
     public void setCityName(String name) {
@@ -133,6 +132,7 @@ public class InfoPanel extends JPanel implements CurrentListener {
 
     /**
      * Получение типа пути
+     *
      * @return тип пути
      */
     public WayKind getWayKind() {
@@ -148,6 +148,7 @@ public class InfoPanel extends JPanel implements CurrentListener {
 
     /**
      * Установка типа пути
+     *
      * @param kind новый тип пути
      */
     public void setWayKind(WayKind kind) {
@@ -166,15 +167,8 @@ public class InfoPanel extends JPanel implements CurrentListener {
     }
 
     /**
-     * Получение стоимости пути
-     * @return стоимость пути
-     */
-    public int getWayCost() {
-        return (Integer)(wayCost.getValue());
-    }
-
-    /**
      * Установка стоимости пути
+     *
      * @param cost новая стоимость пути
      */
     public void setWayCost(int cost) {
@@ -183,15 +177,8 @@ public class InfoPanel extends JPanel implements CurrentListener {
     }
 
     /**
-     * Получение времени в пути
-     * @return время в пути
-     */
-    public int getWayTime() {
-        return (Integer)(wayTime.getValue());
-    }
-
-    /**
      * Установка времени в пути
+     *
      * @param time новое время в пути
      */
     public void setWayTime(int time) {
@@ -201,10 +188,11 @@ public class InfoPanel extends JPanel implements CurrentListener {
 
     /**
      * Обработчик выбора текущего города
+     *
      * @param city выбранный город
      */
     public void currentCityChanged(City city) {
-        if (city==null) {
+        if (city == null) {
             cityName.setEnabled(false);
         } else {
             this.setCityName(city.getName());
@@ -213,10 +201,11 @@ public class InfoPanel extends JPanel implements CurrentListener {
 
     /**
      * Обработчик выбора текущего пути
+     *
      * @param way выбранный путь
      */
     public void currentWayChanged(Way way) {
-        if (way==null) {
+        if (way == null) {
             wayKind.setEnabled(false);
             wayCost.setEnabled(false);
             wayTime.setEnabled(false);

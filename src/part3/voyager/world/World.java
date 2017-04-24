@@ -26,19 +26,11 @@ public class World implements Externalizable {
     /**
      * Города
      */
-    private List<City> cities;
+    private final List<City> cities = new ArrayList<>();
     /**
      * Пути
      */
-    private List<Way> ways;
-
-    /**
-     * Конструктор
-     */
-    public World() {
-        cities = new ArrayList<>();
-        ways = new ArrayList<>();
-    }
+    private final List<Way> ways = new ArrayList<>();
 
     /**
      * Получение ближайшего города
