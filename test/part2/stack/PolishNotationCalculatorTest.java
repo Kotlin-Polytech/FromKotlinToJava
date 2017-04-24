@@ -5,6 +5,9 @@
 package part2.stack;
 
 import org.junit.Test;
+
+import java.util.NoSuchElementException;
+
 import static org.junit.Assert.*;
 
 /**
@@ -31,7 +34,7 @@ public class PolishNotationCalculatorTest {
         assertEquals(3.0, PolishNotationCalculator.calcFunctional("10 1 2 3 * + -"), 1e-10);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected=NoSuchElementException.class)
     public void test4() {
         PolishNotationCalculator.calc("1 -");
     }

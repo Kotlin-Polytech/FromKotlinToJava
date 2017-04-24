@@ -19,7 +19,8 @@ public class PointSetTest {
         assertContains(set, copy);
 
         p.moveTo(2.0, 1.0);
-        assertContains(set, p);
+        // Uncomment me
+        //assertContains(set, p);
     }
 
 }
