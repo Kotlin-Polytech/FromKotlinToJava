@@ -19,7 +19,7 @@ abstract class AbstractWorldEdit(val world: World) : UndoableEdit {
     override fun die() {
     }
 
-    override fun getUndoPresentationName() = "Undo '$presentationName'"
+    override fun getUndoPresentationName() = "Отменить '$presentationName'"
 
-    override fun getRedoPresentationName() = "Redo '$presentationName'"
+    override fun getRedoPresentationName() = "Повторить '$presentationName'"
 }

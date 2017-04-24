@@ -5,7 +5,7 @@ import part3.voyager.world.World
 
 class CityCreation(val city: City, world: World) : AbstractWorldEdit(world) {
     override fun getPresentationName(): String {
-        return "Add city ${city.name}"
+        return "Добавить город ${city.name}"
     }
 
     override fun redo() {

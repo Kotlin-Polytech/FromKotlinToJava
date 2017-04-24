@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -15,6 +13,7 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.undo.UndoManager;
+import javax.swing.undo.UndoableEdit;
 
 import org.jdom.JDOMException;
 
@@ -40,8 +39,35 @@ public class VoyagerFrame extends JFrame {
     private ActionListener addCityListener, addWayListener, selectListener;
     private ActionListener openListener, saveListener, quitListener;
     private ActionListener undoListener, redoListener;
+    private JMenuItem undoMenu, redoMenu;
 
-    private UndoManager undoManager = new UndoManager();
+    private UndoManager undoManager = new UndoManager() {
+        @Override
+        public synchronized boolean addEdit(UndoableEdit anEdit) {
+            boolean result = super.addEdit(anEdit);
+            updateUndoRedoStatus();
+            return result;
+        }
+    };
+
+    private void updateUndoRedoStatus() {
+        if (undoManager.canUndo()) {
+            undoMenu.setEnabled(true);
+            undoMenu.setText(undoManager.getUndoPresentationName());
+        }
+        else {
+            undoMenu.setEnabled(false);
+            undoMenu.setText("Отменить действие");
+        }
+        if (undoManager.canRedo()) {
+            redoMenu.setEnabled(true);
+            redoMenu.setText(undoManager.getRedoPresentationName());
+        }
+        else {
+            redoMenu.setEnabled(false);
+            redoMenu.setText("Повторить действие");
+        }
+    }
 
     /**
      * Инициализация информационной панели
@@ -96,12 +122,13 @@ public class VoyagerFrame extends JFrame {
         fileMenu.add(quitMenu);
         JMenu editMenu = new JMenu("Редактирование");
         menuBar.add(editMenu);
-        JMenuItem undoMenu = new JMenuItem("Отменить действие");
+        undoMenu = new JMenuItem("");
         undoMenu.addActionListener(undoListener);
         editMenu.add(undoMenu);
-        JMenuItem redoMenu = new JMenuItem("Повторить действие");
+        redoMenu = new JMenuItem("");
         redoMenu.addActionListener(redoListener);
         editMenu.add(redoMenu);
+        updateUndoRedoStatus();
         JMenu modeMenu = new JMenu("Режим");
         ButtonGroup modeGroup = new ButtonGroup();
         JRadioButtonMenuItem selectMenu = new JRadioButtonMenuItem("Выбор");
@@ -215,6 +242,7 @@ public class VoyagerFrame extends JFrame {
                 repaint();
                 this.setTitle("Коммивояжер - " + currentFile.getName());
                 undoManager.discardAllEdits();
+                updateUndoRedoStatus();
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "Ошибка открытия файла: " +
                         ex.getMessage());
@@ -231,7 +259,7 @@ public class VoyagerFrame extends JFrame {
     /**
      * Сохранить файл
      */
-    private void onSave() {
+    private boolean onSave() {
         // Создаем диалог
         JFileChooser fileChooser = new JFileChooser(currentFile);
         fileChooser.setCurrentDirectory(new File("."));
@@ -269,28 +297,47 @@ public class VoyagerFrame extends JFrame {
                 }
             }
             undoManager.discardAllEdits();
+            updateUndoRedoStatus();
+            return true;
         }
+        return false;
     }
 
     /**
      * Обработчик выхода
      */
     private void onQuit() {
-        String[] vars = {"Да", "Нет"};
-        int result = JOptionPane.showOptionDialog(this, "Действительно выйти?",
-                "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
-                null, vars, "Да");
-        if (result == JOptionPane.YES_OPTION)
+        if (undoManager.canUndo()) {
+            String[] vars = { "Да", "Нет", "Отмена" };
+            int result = JOptionPane.showOptionDialog(this, "Файл изменён, сохранить?",
+                    "", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+                    null, vars, "Да");
+            if (result == JOptionPane.CANCEL_OPTION)
+                return;
+            if (result == JOptionPane.YES_OPTION) {
+                if (!onSave()) return;
+            }
             System.exit(0);
+        }
+        else {
+            String[] vars = {"Да", "Нет"};
+            int result = JOptionPane.showOptionDialog(this, "Действительно выйти?",
+                    "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                    null, vars, "Да");
+            if (result == JOptionPane.YES_OPTION)
+                System.exit(0);
+        }
     }
 
     private void onUndo() {
         undoManager.undo();
+        updateUndoRedoStatus();
         repaint();
     }
 
     private void onRedo() {
         undoManager.redo();
+        updateUndoRedoStatus();
         repaint();
     }
 
