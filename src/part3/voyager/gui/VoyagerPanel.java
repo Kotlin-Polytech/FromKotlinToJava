@@ -2,6 +2,7 @@ package part3.voyager.gui;
 
 import java.awt.Color;
 
+import part3.voyager.gui.edit.CityCreation;
 import part3.voyager.world.City;
 import part3.voyager.world.World;
 
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javax.swing.JPanel;
+import javax.swing.undo.UndoManager;
 
 import org.jdom.JDOMException;
 import part3.voyager.world.Way;
@@ -53,6 +55,8 @@ class VoyagerPanel extends JPanel implements InfoListener {
      * Текущий путь (null - нет)
      */
     private Way currentWay;
+
+    private final UndoManager undoManager;
 
     /**
      * Режим работы
@@ -101,6 +105,7 @@ class VoyagerPanel extends JPanel implements InfoListener {
     private void onPressAddCity(int x, int y) {
         City city = new City("Город", x, y);
         world.addCity(city);
+        undoManager.addEdit(new CityCreation(city, world));
         currentCity = city;
         currentListener.currentCityChanged(city);
         repaint();
@@ -255,12 +260,13 @@ class VoyagerPanel extends JPanel implements InfoListener {
      *
      * @param listener слушатель изменения текущего объекта
      */
-    public VoyagerPanel(CurrentListener listener) {
+    public VoyagerPanel(CurrentListener listener, UndoManager undoManager) {
         super();
         currentListener = listener;
         world = new World();
         mode = Mode.SELECT;
         initListeners();
+        this.undoManager = undoManager;
     }
 
     /**

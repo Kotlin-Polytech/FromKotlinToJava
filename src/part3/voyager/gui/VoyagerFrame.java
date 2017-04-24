@@ -14,6 +14,7 @@ import java.io.IOException;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.undo.UndoManager;
 
 import org.jdom.JDOMException;
 
@@ -38,6 +39,9 @@ public class VoyagerFrame extends JFrame {
      */
     private ActionListener addCityListener, addWayListener, selectListener;
     private ActionListener openListener, saveListener, quitListener;
+    private ActionListener undoListener, redoListener;
+
+    private UndoManager undoManager = new UndoManager();
 
     /**
      * Инициализация информационной панели
@@ -66,7 +70,7 @@ public class VoyagerFrame extends JFrame {
      * Инициализация главной панели
      */
     private void initMainPanel() {
-        voyagerPanel = new VoyagerPanel(infoPanel);
+        voyagerPanel = new VoyagerPanel(infoPanel, undoManager);
         voyagerPanel.setBackground(new Color(0, 0, 64));
         voyagerPanel.setPreferredSize(new Dimension(1000, 1000));
         voyagerPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
@@ -90,6 +94,14 @@ public class VoyagerFrame extends JFrame {
         JMenuItem quitMenu = new JMenuItem("Выйти");
         quitMenu.addActionListener(quitListener);
         fileMenu.add(quitMenu);
+        JMenu editMenu = new JMenu("Редактирование");
+        menuBar.add(editMenu);
+        JMenuItem undoMenu = new JMenuItem("Отменить действие");
+        undoMenu.addActionListener(undoListener);
+        editMenu.add(undoMenu);
+        JMenuItem redoMenu = new JMenuItem("Повторить действие");
+        redoMenu.addActionListener(redoListener);
+        editMenu.add(redoMenu);
         JMenu modeMenu = new JMenu("Режим");
         ButtonGroup modeGroup = new ButtonGroup();
         JRadioButtonMenuItem selectMenu = new JRadioButtonMenuItem("Выбор");
@@ -144,6 +156,9 @@ public class VoyagerFrame extends JFrame {
         saveListener = e -> onSave();
         // Выход
         quitListener = e -> onQuit();
+        // Undo / Redo
+        undoListener = e -> onUndo();
+        redoListener = e -> onRedo();
         // Обработчик выхода
         addWindowListener(new WindowAdapter() {
             @Override
@@ -294,6 +309,16 @@ public class VoyagerFrame extends JFrame {
                 null, vars, "Да");
         if (result == JOptionPane.YES_OPTION)
             System.exit(0);
+    }
+
+    private void onUndo() {
+        undoManager.undo();
+        repaint();
+    }
+
+    private void onRedo() {
+        undoManager.redo();
+        repaint();
     }
 
     /**
