@@ -9,6 +9,7 @@ package part4.deposit.naive;
  *
  * @author Eugene Pychkine
  */
+@SuppressWarnings("Duplicates")
 public class Main {
 
     /**

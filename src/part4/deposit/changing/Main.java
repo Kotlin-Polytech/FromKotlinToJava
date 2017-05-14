@@ -3,9 +3,7 @@
  * and open the template in the editor.
  */
 
-package part4.deposit.sync;
-
-import part4.deposit.naive.Deposit;
+package part4.deposit.changing;
 
 /**
  *
