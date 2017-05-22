@@ -2,6 +2,7 @@ package part4.graph
 
 import org.junit.Test
 import org.junit.Assert.*
+import java.util.*
 
 class Tests {
 
@@ -59,5 +60,66 @@ class Tests {
         assertEquals(3, graph.dfs("E", "D"))
         assertEquals(1, graph.dfs("H", "G"))
         assertEquals(-1, graph.dfs("H", "A"))
+    }
+
+    @Test
+    fun bfsLong() {
+        val graph = Graph()
+        val vertexNumber = 20000
+        for (i in 1..vertexNumber) {
+            val name = i.toString()
+            graph.addVertex(name)
+        }
+        val random = Random()
+        for (i in 1..vertexNumber) {
+            val name = i.toString()
+            for (j in 1..Math.sqrt(vertexNumber.toDouble()).toInt()) {
+                val another = random.nextInt(vertexNumber) + 1
+                if (another == i) continue
+                graph.connect(name, another.toString())
+            }
+        }
+        val start = random.nextInt(vertexNumber) + 1
+        val finish = random.nextInt(vertexNumber) + 1
+        val startTime = Calendar.getInstance().timeInMillis
+        graph.bfs(start.toString(), finish.toString())
+        val endTime = Calendar.getInstance().timeInMillis
+        println("Start: $startTime End: $endTime Time spent: ${endTime - startTime}")
+    }
+
+    @Test
+    fun dfsLong() {
+        val graph = Graph()
+        val vertexNumber = 16
+        for (i in 1..vertexNumber) {
+            val name = i.toString()
+            graph.addVertex(name)
+        }
+        val random = Random()
+        for (i in 1..vertexNumber) {
+            val name = i.toString()
+            for (j in 1..Math.sqrt(vertexNumber.toDouble()).toInt()) {
+                val another = random.nextInt(vertexNumber) + 1
+                if (another == i) continue
+                graph.connect(name, another.toString())
+            }
+        }
+        val start = random.nextInt(vertexNumber) + 1
+        val finish = random.nextInt(vertexNumber) + 1
+        val expectedResult = run {
+            val startTime = Calendar.getInstance().timeInMillis
+            val result = graph.dfs(start.toString(), finish.toString())
+            val endTime = Calendar.getInstance().timeInMillis
+            println("Start: $startTime End: $endTime Time spent: ${endTime - startTime}")
+            result
+        }
+        val actualResult = run {
+            val startTime = Calendar.getInstance().timeInMillis
+            val result = graph.dfsMultiThread(start.toString(), finish.toString())
+            val endTime = Calendar.getInstance().timeInMillis
+            println("Start: $startTime End: $endTime Time spent: ${endTime - startTime}")
+            result
+        }
+        assertEquals(expectedResult, actualResult)
     }
 }

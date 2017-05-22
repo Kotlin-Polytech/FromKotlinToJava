@@ -2,6 +2,8 @@ package part4.graph
 
 import java.lang.IllegalArgumentException
 import java.util.*
+import java.util.concurrent.Executors
+import java.util.concurrent.Future
 
 class Graph {
     private data class Vertex(val name: String) {
@@ -68,4 +70,29 @@ class Graph {
                         .filterNotNull().min()
                 if (min == null) null else min + 1
             }
+
+
+
+
+
+    fun dfsMultiThread(start: String, finish: String): Int {
+        val startVertex = this[start]
+        val finishVertex = this[finish]
+        val startNeighbors = startVertex.neighbors
+        val executor = Executors.newFixedThreadPool(startNeighbors.size)
+        val results = mutableMapOf<Int, Future<Int>>()
+        println("Total executors: ${startNeighbors.size}")
+        for ((index, neighbor) in startNeighbors.withIndex()) {
+            results[index] = executor.submit<Int> {
+                val startTime = Calendar.getInstance().timeInMillis
+                val result = dfs(neighbor, finishVertex, setOf(startVertex)) ?: -1
+                val endTime = Calendar.getInstance().timeInMillis
+                println("Exec ${index + 1} Start: $startTime End: $endTime Time spent: ${endTime - startTime}")
+                result
+            }
+        }
+        val min = results.values.map { it.get() }.filter { it >= 0 }.min()
+        if (min != null) return min + 1
+        else return -1
+    }
 }
