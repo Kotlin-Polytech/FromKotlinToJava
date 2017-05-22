@@ -30,7 +30,7 @@ public class Main {
             System.out.println( "Balance at termination: " + balance );
         }
         catch( InterruptedException e ) {
-            System.out.println( "Unexpected");
+            System.out.println( "Unexpected thread interrupt!");
         }        
     }
 }
