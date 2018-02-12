@@ -33,8 +33,8 @@ class GameView : View() {
                 vbox {
                     button("Restart game").setOnAction {
                         board.clear()
-                        for (x in 0..columnsNumber - 1) {
-                            for (y in 0..rowsNumber - 1) {
+                        for (x in 0 until columnsNumber) {
+                            for (y in 0 until rowsNumber) {
                                 updateBoardAndStatus(Cell(x, y))
                             }
                         }
@@ -43,9 +43,9 @@ class GameView : View() {
                     gridpane {
                         hgap = 5.0
                         vgap = 5.0
-                        for (row in 0..rowsNumber - 1) {
+                        for (row in 0 until rowsNumber) {
                             row {
-                                for (column in 0..columnsNumber - 1) {
+                                for (column in 0 until columnsNumber) {
                                     val cell = Cell(column, rowsNumber - 1 - row)
                                     val button = button {
                                         style {
