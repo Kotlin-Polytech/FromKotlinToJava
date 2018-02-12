@@ -56,4 +56,11 @@ public class RationalTest {
         new Rational(1, 0);
     }
 
+    @Test
+    public void getters() {
+        Rational r = new Rational(3, 6);
+        assertEquals(1, r.getNumerator());
+        assertEquals(2, r.getDenominator());
+    }
+
 }

@@ -3,9 +3,9 @@ package part1.kotlin
 import java.lang.Math.abs
 
 class Rational(numerator: Int, denominator: Int) {
-    private val numerator: Int
+    val numerator: Int
 
-    private val denominator: Int
+    val denominator: Int
 
     private tailrec fun gcd(a: Int, b: Int): Int =
             when {

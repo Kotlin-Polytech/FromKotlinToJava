@@ -51,4 +51,10 @@ class RationalTest {
         Rational(1, 0)
     }
 
+    @Test
+    fun getters() {
+        val r = Rational(3, 6)
+        assertEquals(1, r.numerator)
+        assertEquals(2, r.denominator)
+    }
 }

@@ -23,6 +23,14 @@ public final class Rational {
         this.denominator = denominator / gcd;
     }
 
+    public int getNumerator() {
+        return numerator;
+    }
+
+    public int getDenominator() {
+        return denominator;
+    }
+
     public Rational plus(Rational other) {
         return new Rational(
                 numerator * other.denominator + denominator * other.numerator,
