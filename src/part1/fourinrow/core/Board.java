@@ -88,17 +88,34 @@ public class Board {
                 Cell cell = new Cell(x, y);
                 Chip startChip = chips.get(cell);
                 if (startChip == null) continue;
+                // Vector-style
                 for (Cell dir: DIRECTIONS) {
                     Cell current = cell;
                     int length = 1;
                     for (; length < TO_WIN_LENGTH; length++) {
                         current = current.plus(dir);
-                        if (!correct(current)) break;
                         if (get(current) != startChip) break;
                     }
                     if (length == TO_WIN_LENGTH) return startChip;
-
                 }
+                // Straight-forward style
+//                int i;
+//                for (i = 1; i < TO_WIN_LENGTH; i++) {
+//                    if (get(x + i, y) != startChip) break;
+//                }
+//                if (i == TO_WIN_LENGTH) return startChip;
+//                for (i = 1; i < TO_WIN_LENGTH; i++) {
+//                    if (get(x, y + i) != startChip) break;
+//                }
+//                if (i == TO_WIN_LENGTH) return startChip;
+//                for (i = 1; i < TO_WIN_LENGTH; i++) {
+//                    if (get(x + i, y + i) != startChip) break;
+//                }
+//                if (i == TO_WIN_LENGTH) return startChip;
+//                for (i = 1; i < TO_WIN_LENGTH; i++) {
+//                    if (get(x + i, y - i) != startChip) break;
+//                }
+//                if (i == TO_WIN_LENGTH) return startChip;
             }
         }
         return null;
@@ -146,6 +163,5 @@ public class Board {
                 return;
             }
         }
-
     }
 }
