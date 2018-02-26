@@ -29,8 +29,10 @@ public class ColoredPointTest {
         set.add(p3);
         set.add(p1);
         assertEquals(2, set.size());
+    }
 
-
+    @Test
+    public void removeIfTest() {
         Collection<ColoredPoint> collection = new ArrayList<>();
         collection.add(new ColoredPoint(1.0, 2.0, 0xff0000));
         collection.add(new ColoredPoint(-1.0, -2.0, 0x0000ff));
