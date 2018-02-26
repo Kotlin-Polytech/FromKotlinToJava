@@ -12,14 +12,14 @@ import static org.junit.Assert.*;
 
 public class ColoredPointTest {
     @Test
-    public void cloneTest() throws Exception {
+    public void cloneTest() {
         ColoredPoint cp = new ColoredPoint(1.0, 2.0, 0xff0000);
         ColoredPoint cp2 = cp.clone();
         assertEquals(cp, cp2);
     }
 
     @Test
-    public void equalsTest() throws Exception {
+    public void equalsTest() {
         Point p1 = new Point(1.0, 2.0);
         ColoredPoint p3 = new ColoredPoint(1.0, 2.0, 0xff0000);
         assertFalse(p1.equals(p3));
