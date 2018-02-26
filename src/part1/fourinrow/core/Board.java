@@ -1,5 +1,8 @@
 package part1.fourinrow.core;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,8 +15,10 @@ public class Board {
 
     private final int height;
 
+    @NotNull
     private final Map<Cell, Chip> chips = new HashMap<>();
 
+    @NotNull
     private Chip turn = Chip.YELLOW;
 
     public Board(int width, int height) {
@@ -26,14 +31,17 @@ public class Board {
         turn = Chip.YELLOW;
     }
 
+    @Nullable
     public Chip get(int x, int y) {
         return get(new Cell(x, y));
     }
 
+    @Nullable
     public Chip get(Cell cell) {
         return chips.get(cell);
     }
 
+    @NotNull
     public Chip getTurn() {
         return turn;
     }
@@ -69,6 +77,7 @@ public class Board {
         return cell.getX() >= 0 && cell.getX() < width && cell.getY() >= 0 && cell.getY() < height;
     }
 
+    @Nullable
     public Chip winner() {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
