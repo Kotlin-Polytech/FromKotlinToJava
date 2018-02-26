@@ -26,6 +26,10 @@ public class Board {
         this.height = height;
     }
 
+    public Board() {
+        this(7, 6);
+    }
+
     public void clear() {
         chips.clear();
         turn = Chip.YELLOW;
