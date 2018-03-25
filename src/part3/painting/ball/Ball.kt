@@ -1,10 +1,15 @@
 package part3.painting.ball
 
-import java.awt.Color
+enum class BallColor(val red: Int, val green: Int, val blue: Int) {
+    YELLOW(255, 255, 0),
+    RED(255, 0, 0),
+    GREEN(0, 128, 0),
+    BLUE(0, 0, 255)
+}
 
 class Ball(var x: Int, var y: Int,
            private var dx: Int, private var dy: Int,
-           val radius: Int, val color: Color) {
+           val radius: Int, val color: BallColor) {
 
     fun step(xLimit: Int, yLimit: Int) {
         x += dx

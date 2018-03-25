@@ -1,21 +1,23 @@
-package part3.painting.ball;
+package part3.painting.ball.swing;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import part3.painting.ball.Ball;
+import part3.painting.ball.BallColor;
+
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.Timer;
 import javax.swing.JPanel;
 
 @SuppressWarnings("WeakerAccess")
-class MainPanel extends JPanel {
+class BallPanel extends JPanel {
     private final Ball ball, controlledBall;
     private boolean hold;
 
-    public MainPanel() {
+    public BallPanel() {
         setBackground(Color.BLACK);
-        ball = new Ball(50, 150, 1, 2, 10, Color.YELLOW);
+        ball = new Ball(50, 150, 1, 2, 10, BallColor.YELLOW);
         hold = false;
-        controlledBall = new Ball(250, 200, 2, 1, 7, Color.BLUE);
+        controlledBall = new Ball(250, 200, 2, 1, 7, BallColor.BLUE);
         ActionListener timerListener = e -> {
             if (!hold)
                 ball.step(getWidth(), getHeight());
@@ -55,7 +57,8 @@ class MainPanel extends JPanel {
     }
 
     private void paintBall(Graphics g, Ball b) {
-        g.setColor(b.getColor());
+        BallColor ballColor = b.getColor();
+        g.setColor(new Color(ballColor.getRed(), ballColor.getGreen(), ballColor.getBlue()));
         int radius = b.getRadius();
         g.fillOval(b.getX() - radius, b.getY() - radius, 2 * radius, 2 * radius);
     }

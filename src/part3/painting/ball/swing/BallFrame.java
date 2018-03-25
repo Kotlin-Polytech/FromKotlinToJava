@@ -1,4 +1,4 @@
-package part3.painting.ball;
+package part3.painting.ball.swing;
 
 import javax.swing.*;
 
@@ -6,13 +6,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class MainFrame extends JFrame {
-    private MainPanel panel;
+public class BallFrame extends JFrame {
+    private BallPanel panel;
 
-    private MainFrame(String s) {
+    private BallFrame(String s) {
         super(s);
         setSize(600, 400);
-        panel = new MainPanel();
+        panel = new BallPanel();
         this.setContentPane(panel);
         KeyListener keyListener = new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
@@ -38,6 +38,6 @@ public class MainFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new MainFrame("Заставка с шариком"));
+        SwingUtilities.invokeLater(() -> new BallFrame("Заставка с шариком"));
     }
 }
