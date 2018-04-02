@@ -42,6 +42,8 @@ class BallView : View() {
             center {
                 style = "-fx-background-color: black"
                 canvas = canvas {
+                    isFocusTraversable = true
+
                     paint(mouseBall)
                     paint(keyboardBall)
 
@@ -64,7 +66,6 @@ class BallView : View() {
                         }
                     }
 
-                    // Does not work due to lack of focus
                     setOnKeyPressed {
                         when (it.code) {
                             KeyCode.UP -> keyboardBall.touch(0, -1)
