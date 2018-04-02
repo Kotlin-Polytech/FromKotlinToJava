@@ -42,9 +42,6 @@ class BallView : View() {
             center {
                 style = "-fx-background-color: black"
                 canvas = canvas {
-                    width = 600.0
-                    height = 400.0
-
                     paint(mouseBall)
                     paint(keyboardBall)
 
@@ -78,6 +75,8 @@ class BallView : View() {
                         }
                     }
                 }
+                canvas.widthProperty().bind((canvas.parent as BorderPane).widthProperty())
+                canvas.heightProperty().bind((canvas.parent as BorderPane).heightProperty())
             }
         }
 
