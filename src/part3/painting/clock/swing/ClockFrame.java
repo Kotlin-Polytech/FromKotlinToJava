@@ -1,4 +1,4 @@
-package part3.painting.clock;
+package part3.painting.clock.swing;
 
 import javax.swing.*;
 
@@ -6,9 +6,9 @@ import javax.swing.*;
  * Основной фрейм программы
  * @author Mikhail Glukhikh
  */
-public class MainFrame extends JFrame {
+public class ClockFrame extends JFrame {
 
-    private MainFrame() {
+    private ClockFrame() {
         super("Часы со стрелками");
         setSize(400, 400);
         setContentPane(new ClockPanel());
@@ -17,6 +17,6 @@ public class MainFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(MainFrame::new);
+        SwingUtilities.invokeLater(ClockFrame::new);
     }
 }

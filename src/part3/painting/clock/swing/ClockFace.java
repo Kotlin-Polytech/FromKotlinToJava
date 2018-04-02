@@ -1,4 +1,4 @@
-package part3.painting.clock;
+package part3.painting.clock.swing;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
