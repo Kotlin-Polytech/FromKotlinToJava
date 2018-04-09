@@ -9,7 +9,7 @@ import part1.fourinrow.core.Cell
 import part1.fourinrow.core.Chip
 import tornadofx.*
 
-class GameView : View() {
+class FourInRowView : View() {
 
     private val columnsNumber = 7
 
