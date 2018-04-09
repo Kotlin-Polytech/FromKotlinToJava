@@ -42,25 +42,29 @@ public class BoardPanel extends JPanel {
             }
         }
         updateContent(new Cell(0, 0));
+        if (yellowComputer != null && redComputer != null) {
+            Timer timer = new Timer(1000, e -> {
+                ComputerPlayer playerToMakeTurn1 = board.getTurn() == Chip.YELLOW ? yellowComputer : redComputer;
+                makeComputerTurn(playerToMakeTurn1);
+            });
+            timer.start();
+        }
     }
 
-    void updateContent(@NotNull Cell cell) {
-        ComputerPlayer playerToMakeTurn = board.getTurn() == Chip.YELLOW ? yellowComputer : redComputer;
-        if (playerToMakeTurn != null) {
-            ComputerPlayer.EvaluatedTurn turn = playerToMakeTurn.bestTurn(2);
-            Integer x = turn.getTurn();
-            if (x != null) {
-                board.makeTurn(x);
-                for (int y = board.getHeight() - 1; y >= 0; y--) {
-                    CellPanel cellPanel = cellPanelMap.get(new Cell(x, y));
-                    cellPanel.repaint();
-                }
+    private void makeComputerTurn(ComputerPlayer playerToMakeTurn) {
+        ComputerPlayer.EvaluatedTurn turn = playerToMakeTurn.bestTurn(2);
+        Integer x = turn.getTurn();
+        if (x != null) {
+            board.makeTurn(x);
+            for (int y = board.getHeight() - 1; y >= 0; y--) {
+                CellPanel cellPanel = cellPanelMap.get(new Cell(x, y));
+                cellPanel.repaint();
             }
+            updateStatus();
         }
-        for (int y = cell.getY() - 1; y >= 0; y--) {
-            CellPanel cellPanel = cellPanelMap.get(new Cell(cell.getX(), y));
-            cellPanel.repaint();
-        }
+    }
+
+    private void updateStatus() {
         Chip winner = board.winner();
         if (winner == null) {
             switch (board.getTurn()) {
@@ -81,5 +85,17 @@ public class BoardPanel extends JPanel {
                 statusLabel.setText("Red won!");
                 break;
         }
+    }
+
+    void updateContent(@NotNull Cell cell) {
+        ComputerPlayer playerToMakeTurn = board.getTurn() == Chip.YELLOW ? yellowComputer : redComputer;
+        if (playerToMakeTurn != null) {
+            makeComputerTurn(playerToMakeTurn);
+        }
+        for (int y = cell.getY() - 1; y >= 0; y--) {
+            CellPanel cellPanel = cellPanelMap.get(new Cell(cell.getX(), y));
+            cellPanel.repaint();
+        }
+        updateStatus();
     }
 }

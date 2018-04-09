@@ -25,8 +25,10 @@ public class CellPanel extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    board.makeTurn(cell.getX());
-                    repaint();
+                    if (board.winner() == null) {
+                        board.makeTurn(cell.getX());
+                        repaint();
+                    }
                 }
                 parent.updateContent(cell);
             }

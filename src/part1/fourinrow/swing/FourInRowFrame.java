@@ -3,13 +3,13 @@ package part1.fourinrow.swing;
 import javax.swing.*;
 import java.awt.*;
 
-public class MainFrame extends JFrame {
+public class FourInRowFrame extends JFrame {
 
-    public MainFrame() {
+    private FourInRowFrame() {
         this(true, true);
     }
 
-    public MainFrame(boolean yellowHuman, boolean redHuman) {
+    FourInRowFrame(boolean yellowHuman, boolean redHuman) {
         super("Four in a row");
         setSize(600, 400);
         setLayout(new BorderLayout());
@@ -21,6 +21,6 @@ public class MainFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(MainFrame::new);
+        SwingUtilities.invokeLater(FourInRowFrame::new);
     }
 }

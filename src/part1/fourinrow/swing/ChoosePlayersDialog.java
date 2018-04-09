@@ -54,7 +54,7 @@ public class ChoosePlayersDialog extends JDialog {
         dialog.pack();
         dialog.setVisible(true);
         if (dialog.exit) System.exit(0);
-        SwingUtilities.invokeLater(() -> new MainFrame(
+        SwingUtilities.invokeLater(() -> new FourInRowFrame(
                 dialog.yellowHumanButton.isSelected(),
                 dialog.redHumanButton.isSelected()
         ));
