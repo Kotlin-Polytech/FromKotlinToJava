@@ -57,6 +57,6 @@ public class ChoosePlayersDialog extends JDialog {
         SwingUtilities.invokeLater(() -> new MainFrame(
                 dialog.yellowHumanButton.isSelected(),
                 dialog.redHumanButton.isSelected()
-                ));
+        ));
     }
 }
