@@ -57,8 +57,6 @@ class VoyagerPanel extends JPanel implements InfoListener {
      */
     private Way currentWay;
 
-    private final UndoManager undoManager;
-
     /**
      * Режим работы
      */
@@ -74,6 +72,143 @@ class VoyagerPanel extends JPanel implements InfoListener {
      * Первая точка пути
      */
     private City startCity;
+
+    static public class Controller {
+
+        private World world;
+
+        private VoyagerPanel panel;
+
+        private UndoManager undoManager;
+
+        public Controller(World world, VoyagerPanel panel, UndoManager undoManager) {
+            this.world = world;
+            this.panel = panel;
+            this.undoManager = undoManager;
+        }
+
+        /**
+         * Нажатие мыши в режиме добавления города
+         *
+         * @param x x-координата
+         * @param y y-координата
+         */
+        private void onPressAddCity(int x, int y) {
+            City city = new City("Город", x, y);
+            world.addCity(city);
+            undoManager.addEdit(new CityCreation(city, world));
+            panel.setCurrentCity(city);
+            panel.repaint();
+        }
+
+        /**
+         * Нажатие мыши в режиме добавления пути (первая точка)
+         *
+         * @param x x-координата
+         * @param y y-координата
+         */
+        private void onPressAddWayStart(int x, int y) {
+            City startCity = world.getNearestCity(x, y);
+            if (startCity != null &&
+                    startCity.getDistanceSquare(x, y) <= CITY_EXT_RADIUS * CITY_EXT_RADIUS) {
+                panel.startCity = startCity;
+                panel.setCurrentCity(startCity);
+                panel.mode = Mode.ADD_WAY_FINISH;
+                panel.repaint();
+            }
+        }
+
+        /**
+         * Нажатие мыши в режиме добавления пути (вторая точка)
+         *
+         * @param x x-координата
+         * @param y y-координата
+         */
+        private void onPressAddWayFinish(int x, int y) {
+            City finishCity = world.getNearestCity(x, y);
+            if (finishCity != null && finishCity != panel.startCity &&
+                    finishCity.getDistanceSquare(x, y) <= CITY_EXT_RADIUS * CITY_EXT_RADIUS) {
+                WayKind newWayKind = null;
+                // Выбор свободного типа пути
+                for (WayKind kind : WayKind.values()) {
+                    if (world.getWayByCities(panel.startCity, finishCity, kind) == null) {
+                        newWayKind = kind;
+                        break;
+                    }
+                }
+                // Если свободный тип найден
+                if (newWayKind != null) {
+                    Way newWay = new Way(panel.startCity, finishCity, newWayKind,
+                            1000, 2);
+                    world.addWay(newWay);
+                    undoManager.addEdit(new WayCreation(newWay, world));
+                    panel.setCurrentCity(finishCity);
+                    panel.setCurrentWay(newWay);
+                    panel.repaint();
+                    panel.mode = Mode.ADD_WAY_START;
+                }
+            }
+        }
+
+        /**
+         * Нажатие мыши в режиме выбора
+         *
+         * @param x x-координата
+         * @param y y-координата
+         */
+        private void onPressSelect(int x, int y) {
+            City city = world.getNearestCity(x, y);
+            if (city != null &&
+                    city.getDistanceSquare(x, y) <= CITY_EXT_RADIUS * CITY_EXT_RADIUS) {
+                // Если удалось выбрать город
+                panel.setCurrentCity(city);
+                panel.repaint();
+            } else {
+                // Если нет - пытаемся выбрать путь
+                final Way way = world.getWayByCoord(x, y);
+                if (way != null) {
+                    panel.setCurrentWay(way);
+                    panel.repaint();
+                }
+            }
+        }
+
+        /**
+         * Нажатие мыши в режиме удаления (правая кнопка)
+         *
+         * @param x x-координата
+         * @param y y-координата
+         */
+        private void onPressRemove(int x, int y) {
+            City city = world.getNearestCity(x, y);
+            if (city != null &&
+                    city.getDistanceSquare(x, y) <= CITY_EXT_RADIUS * CITY_EXT_RADIUS) {
+                // Удаление города и связанных путей
+                world.removeCity(city);
+                if (panel.currentCity == city) {
+                    panel.setCurrentCity(null);
+                }
+                // Если удален текущий путь ...
+                Way currentWay = panel.currentWay;
+                if (currentWay != null &&
+                        (currentWay.getStart() == city || currentWay.getFinish() == city)) {
+                    panel.setCurrentWay(null);
+                }
+            } else {
+                // Удаление путей
+                Way way = world.getWayByCoord(x, y);
+                if (way != null) {
+                    world.removeWay(way);
+                    if (panel.currentWay == way) {
+                        panel.setCurrentWay(null);
+                    }
+                }
+            }
+            panel.repaint();
+        }
+    }
+
+    private Controller controller;
 
     /**
      * Инициализация слушателей
@@ -98,133 +233,6 @@ class VoyagerPanel extends JPanel implements InfoListener {
     }
 
     /**
-     * Нажатие мыши в режиме добавления города
-     *
-     * @param x x-координата
-     * @param y y-координата
-     */
-    private void onPressAddCity(int x, int y) {
-        City city = new City("Город", x, y);
-        world.addCity(city);
-        undoManager.addEdit(new CityCreation(city, world));
-        currentCity = city;
-        currentListener.currentCityChanged(city);
-        repaint();
-    }
-
-    /**
-     * Нажатие мыши в режиме добавления пути (первая точка)
-     *
-     * @param x x-координата
-     * @param y y-координата
-     */
-    private void onPressAddWayStart(int x, int y) {
-        startCity = world.getNearestCity(x, y);
-        if (startCity != null &&
-                startCity.getDistanceSquare(x, y) <= CITY_EXT_RADIUS * CITY_EXT_RADIUS) {
-            currentCity = startCity;
-            currentListener.currentCityChanged(startCity);
-            mode = Mode.ADD_WAY_FINISH;
-            repaint();
-        }
-    }
-
-    /**
-     * Нажатие мыши в режиме добавления пути (вторая точка)
-     *
-     * @param x x-координата
-     * @param y y-координата
-     */
-    private void onPressAddWayFinish(int x, int y) {
-        City finishCity = world.getNearestCity(x, y);
-        if (finishCity != null && finishCity != startCity &&
-                finishCity.getDistanceSquare(x, y) <= CITY_EXT_RADIUS * CITY_EXT_RADIUS) {
-            WayKind newWayKind = null;
-            // Выбор свободного типа пути
-            for (WayKind kind : WayKind.values()) {
-                if (world.getWayByCities(startCity, finishCity, kind) == null) {
-                    newWayKind = kind;
-                    break;
-                }
-            }
-            // Если свободный тип найден
-            if (newWayKind != null) {
-                Way newWay = new Way(startCity, finishCity, newWayKind,
-                        1000, 2);
-                world.addWay(newWay);
-                undoManager.addEdit(new WayCreation(newWay, world));
-                currentCity = finishCity;
-                currentListener.currentCityChanged(finishCity);
-                currentWay = newWay;
-                currentListener.currentWayChanged(newWay);
-                repaint();
-                mode = Mode.ADD_WAY_START;
-            }
-        }
-    }
-
-    /**
-     * Нажатие мыши в режиме выбора
-     *
-     * @param x x-координата
-     * @param y y-координата
-     */
-    private void onPressSelect(int x, int y) {
-        City city = world.getNearestCity(x, y);
-        if (city != null &&
-            city.getDistanceSquare(x, y) <= CITY_EXT_RADIUS * CITY_EXT_RADIUS) {
-            // Если удалось выбрать город
-            currentCity = city;
-            currentListener.currentCityChanged(city);
-            repaint();
-        } else {
-            // Если нет - пытаемся выбрать путь
-            final Way way = world.getWayByCoord(x, y);
-            if (way != null) {
-                currentWay = way;
-                currentListener.currentWayChanged(way);
-                repaint();
-            }
-        }
-    }
-
-    /**
-     * Нажатие мыши в режиме удаления (правая кнопка)
-     *
-     * @param x x-координата
-     * @param y y-координата
-     */
-    private void onPressRemove(int x, int y) {
-        City city = world.getNearestCity(x, y);
-        if (city != null &&
-                city.getDistanceSquare(x, y) <= CITY_EXT_RADIUS * CITY_EXT_RADIUS) {
-            // Удаление города и связанных путей
-            world.removeCity(city);
-            if (currentCity == city) {
-                currentCity = null;
-                currentListener.currentCityChanged(null);
-            }
-            // Если удален текущий путь ...
-            if (currentWay != null &&
-                    (currentWay.getStart() == city || currentWay.getFinish() == city)) {
-                currentWay = null;
-                currentListener.currentWayChanged(null);
-            }
-        } else {
-            // Удаление путей
-            Way way = world.getWayByCoord(x, y);
-            if (way != null) {
-                world.removeWay(way);
-                if (currentWay == way) {
-                    currentWay = null;
-                    currentListener.currentWayChanged(null);
-                }
-            }
-        }
-        repaint();
-    }
-
-    /**
      * Обработчик нажатия на клавишу мыши
      *
      * @param e мышиное событие
@@ -234,17 +242,18 @@ class VoyagerPanel extends JPanel implements InfoListener {
         // в зависимости от режима и нажатой клавиши
         if (e.getButton() == MouseEvent.BUTTON1) {
             if (mode == Mode.ADD_CITY) {
-                onPressAddCity(e.getX(), e.getY());
+                controller.onPressAddCity(e.getX(), e.getY());
             } else if (mode == Mode.ADD_WAY_START) {
-                onPressAddWayStart(e.getX(), e.getY());
+                controller.onPressAddWayStart(e.getX(), e.getY());
             } else if (mode == Mode.ADD_WAY_FINISH) {
-                onPressAddWayFinish(e.getX(), e.getY());
+                controller.onPressAddWayFinish(e.getX(), e.getY());
             } else {
-                onPressSelect(e.getX(), e.getY());
+                controller.onPressSelect(e.getX(), e.getY());
             }
         } else if (e.getButton() == MouseEvent.BUTTON3) {
-            if (mode == Mode.SELECT)
-                onPressRemove(e.getX(), e.getY());
+            if (mode == Mode.SELECT) {
+                controller.onPressRemove(e.getX(), e.getY());
+            }
         }
     }
 
@@ -266,9 +275,19 @@ class VoyagerPanel extends JPanel implements InfoListener {
         super();
         currentListener = listener;
         world = new World();
+        controller = new Controller(world, this, undoManager);
         mode = Mode.SELECT;
         initListeners();
-        this.undoManager = undoManager;
+    }
+
+    public void setCurrentCity(City city) {
+        currentCity = city;
+        currentListener.currentCityChanged(currentCity);
+    }
+
+    public void setCurrentWay(Way way) {
+        currentWay = way;
+        currentListener.currentWayChanged(currentWay);
     }
 
     /**
