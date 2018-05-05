@@ -36,7 +36,7 @@ public class VoyagerPanel extends JPanel implements InfoListener {
     /**
      * Внешний радиус круга города
      */
-    public static final int CITY_EXT_RADIUS = 20;
+    private static final int CITY_EXT_RADIUS = 20;
 
     /**
      * Мир
@@ -142,6 +142,10 @@ public class VoyagerPanel extends JPanel implements InfoListener {
     public void setCurrentCity(City city) {
         currentCity = city;
         currentListener.currentCityChanged(currentCity);
+    }
+
+    public boolean pointNearCity(City city, int x, int y) {
+        return city.getDistanceSquare(x, y) <= CITY_EXT_RADIUS * CITY_EXT_RADIUS;
     }
 
     public Way getCurrentWay() {

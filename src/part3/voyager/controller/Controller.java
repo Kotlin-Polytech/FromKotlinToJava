@@ -5,6 +5,7 @@ import part3.voyager.gui.edit.CityCreation;
 import part3.voyager.gui.edit.WayCreation;
 import part3.voyager.world.City;
 import part3.voyager.world.Way;
+import part3.voyager.world.Way.WayKind;
 import part3.voyager.world.World;
 
 import javax.swing.undo.UndoManager;
@@ -62,8 +63,7 @@ public class Controller {
      */
     private void onPressAddWayStart(int x, int y) {
         City startCity = world.getNearestCity(x, y);
-        if (startCity != null &&
-            startCity.getDistanceSquare(x, y) <= VoyagerPanel.CITY_EXT_RADIUS * VoyagerPanel.CITY_EXT_RADIUS) {
+        if (startCity != null && panel.pointNearCity(startCity, x, y)) {
             this.startCity = startCity;
             panel.setCurrentCity(startCity);
             panel.repaint();
@@ -78,10 +78,10 @@ public class Controller {
     private void onPressAddWayFinish(int x, int y) {
         City finishCity = world.getNearestCity(x, y);
         if (finishCity != null && finishCity != startCity &&
-            finishCity.getDistanceSquare(x, y) <= VoyagerPanel.CITY_EXT_RADIUS * VoyagerPanel.CITY_EXT_RADIUS) {
-            Way.WayKind newWayKind = null;
+            panel.pointNearCity(finishCity, x, y)) {
+            WayKind newWayKind = null;
             // Выбор свободного типа пути
-            for (Way.WayKind kind : Way.WayKind.values()) {
+            for (WayKind kind : WayKind.values()) {
                 if (world.getWayByCities(startCity, finishCity, kind) == null) {
                     newWayKind = kind;
                     break;
@@ -109,8 +109,7 @@ public class Controller {
      */
     public void onPressSelect(int x, int y) {
         City city = world.getNearestCity(x, y);
-        if (city != null &&
-                city.getDistanceSquare(x, y) <= VoyagerPanel.CITY_EXT_RADIUS * VoyagerPanel.CITY_EXT_RADIUS) {
+        if (city != null && panel.pointNearCity(city, x, y)) {
             // Если удалось выбрать город
             panel.setCurrentCity(city);
             panel.repaint();
@@ -132,8 +131,7 @@ public class Controller {
      */
     public void onPressRemove(int x, int y) {
         City city = world.getNearestCity(x, y);
-        if (city != null &&
-                city.getDistanceSquare(x, y) <= VoyagerPanel.CITY_EXT_RADIUS * VoyagerPanel.CITY_EXT_RADIUS) {
+        if (city != null && panel.pointNearCity(city, x, y)) {
             // Удаление города и связанных путей
             world.removeCity(city);
             if (panel.getCurrentCity() == city) {
