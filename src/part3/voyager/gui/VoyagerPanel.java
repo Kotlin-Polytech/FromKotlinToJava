@@ -118,8 +118,7 @@ public class VoyagerPanel extends JPanel implements InfoListener {
             currentCity == null) {
             return;
         }
-        currentCity.setCoord(e.getX(), e.getY());
-        repaint();
+        controller.onDragCurrentCity(e.getX(), e.getY());
     }
 
     /**

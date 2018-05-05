@@ -157,4 +157,15 @@ public class Controller {
         }
         panel.repaint();
     }
+
+    /**
+     * Перетаскивание мышью
+     *
+     * @param x x-координата
+     * @param y y-координата
+     */
+    public void onDragCurrentCity(int x, int y) {
+        panel.getCurrentCity().setCoord(x, y);
+        panel.repaint();
+    }
 }
