@@ -2,8 +2,6 @@ package part3.voyager.controller;
 
 import part3.voyager.gui.InfoListener;
 import part3.voyager.gui.VoyagerPanel;
-import part3.voyager.gui.edit.CityCreation;
-import part3.voyager.gui.edit.WayCreation;
 import part3.voyager.world.City;
 import part3.voyager.world.Way;
 import part3.voyager.world.Way.WayKind;

@@ -1,4 +1,4 @@
-package part3.voyager.gui.edit
+package part3.voyager.controller
 
 import part3.voyager.world.World
 import javax.swing.undo.UndoableEdit
