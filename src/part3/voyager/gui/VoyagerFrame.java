@@ -355,7 +355,7 @@ public class VoyagerFrame extends JFrame {
         // Инициализация панелей
         initInfoPanel();
         initMainPanel();
-        infoPanel.setListener(voyagerPanel);
+        infoPanel.setListener(voyagerPanel.controller);
         voyagerPanel.setListener(infoPanel);
         initStatusBar();
         JScrollPane scrollPanel = new JScrollPane(voyagerPanel);

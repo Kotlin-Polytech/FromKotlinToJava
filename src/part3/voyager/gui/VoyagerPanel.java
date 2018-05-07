@@ -19,7 +19,6 @@ import javax.swing.undo.UndoManager;
 
 import org.jdom.JDOMException;
 import part3.voyager.world.Way;
-import part3.voyager.world.Way.WayKind;
 
 /**
  * Главная панель - содержит изображение мира,
@@ -27,7 +26,7 @@ import part3.voyager.world.Way.WayKind;
  *
  * @author Михаил Глухих
  */
-public class VoyagerPanel extends JPanel implements InfoListener {
+public class VoyagerPanel extends JPanel {
 
     /**
      * Внутренний радиус круга города
@@ -66,7 +65,7 @@ public class VoyagerPanel extends JPanel implements InfoListener {
 
     private Mode mode;
 
-    private Controller controller;
+    final Controller controller;
 
     /**
      * Инициализация слушателей
@@ -235,59 +234,6 @@ public class VoyagerPanel extends JPanel implements InfoListener {
      */
     public void saveWorldToXML(File file) throws IOException {
         world.writeXML(file);
-    }
-
-    /**
-     * Обработчик изменения имени города
-     *
-     * @param name новое имя города
-     */
-    public void cityNameChanged(String name) {
-        if (currentCity != null) {
-            currentCity.setName(name);
-            repaint();
-        }
-    }
-
-    /**
-     * Обработчик изменения типа пути
-     *
-     * @param kind новый тип пути
-     */
-    public void wayKindChanged(WayKind kind) {
-        if (currentWay != null) {
-            Way newWay = world.getWayByCities(currentWay.getStart(),
-                    currentWay.getFinish(), kind);
-            // Выбрать уже существующий путь такого типа
-            if (newWay != null) {
-                currentWay = newWay;
-                currentListener.currentWayChanged(newWay);
-            } else {
-                // Или изменить тип выбранного пути
-                currentWay.setKind(kind);
-            }
-            repaint();
-        }
-    }
-
-    /**
-     * Обработчик изменения стоимости пути
-     *
-     * @param cost новая стоимость пути
-     */
-    public void wayCostChanged(int cost) {
-        if (currentWay != null)
-            currentWay.setCost(cost);
-    }
-
-    /**
-     * Обработчик изменения времени в пути
-     *
-     * @param time новое время в пути
-     */
-    public void wayTimeChanged(int time) {
-        if (currentWay != null)
-            currentWay.setTime(time);
     }
 
     /**

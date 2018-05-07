@@ -1,5 +1,6 @@
 package part3.voyager.controller;
 
+import part3.voyager.gui.InfoListener;
 import part3.voyager.gui.VoyagerPanel;
 import part3.voyager.gui.edit.CityCreation;
 import part3.voyager.gui.edit.WayCreation;
@@ -10,7 +11,7 @@ import part3.voyager.world.World;
 
 import javax.swing.undo.UndoManager;
 
-public class Controller {
+public class Controller implements InfoListener {
 
     private World world;
 
@@ -165,5 +166,58 @@ public class Controller {
     public void onDragCurrentCity(int x, int y) {
         panel.getCurrentCity().setCoord(x, y);
         panel.repaint();
+    }
+
+    /**
+     * Обработчик изменения имени города
+     *
+     * @param name новое имя города
+     */
+    public void cityNameChanged(String name) {
+        if (panel.getCurrentCity() != null) {
+            panel.getCurrentCity().setName(name);
+            panel.repaint();
+        }
+    }
+
+    /**
+     * Обработчик изменения типа пути
+     *
+     * @param kind новый тип пути
+     */
+    public void wayKindChanged(WayKind kind) {
+        Way currentWay = panel.getCurrentWay();
+        if (currentWay != null) {
+            Way newWay = world.getWayByCities(currentWay.getStart(),
+                    currentWay.getFinish(), kind);
+            // Выбрать уже существующий путь такого типа
+            if (newWay != null) {
+                panel.setCurrentWay(newWay);
+            } else {
+                // Или изменить тип выбранного пути
+                panel.getCurrentWay().setKind(kind);
+            }
+            panel.repaint();
+        }
+    }
+
+    /**
+     * Обработчик изменения стоимости пути
+     *
+     * @param cost новая стоимость пути
+     */
+    public void wayCostChanged(int cost) {
+        if (panel.getCurrentWay() != null)
+            panel.getCurrentWay().setCost(cost);
+    }
+
+    /**
+     * Обработчик изменения времени в пути
+     *
+     * @param time новое время в пути
+     */
+    public void wayTimeChanged(int time) {
+        if (panel.getCurrentWay() != null)
+            panel.getCurrentWay().setTime(time);
     }
 }
