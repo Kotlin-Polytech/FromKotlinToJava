@@ -71,10 +71,6 @@ class Graph {
                 if (min == null) null else min + 1
             }
 
-
-
-
-
     fun dfsMultiThread(start: String, finish: String): Int {
         val startVertex = this[start]
         val finishVertex = this[finish]
