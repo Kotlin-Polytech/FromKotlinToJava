@@ -1,4 +1,4 @@
-package part1.fourinrow.javafx
+package part3.fourinrow.javafx
 
 import javafx.application.Application
 import tornadofx.App

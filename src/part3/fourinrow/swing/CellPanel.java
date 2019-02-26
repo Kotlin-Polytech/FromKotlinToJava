@@ -1,8 +1,8 @@
-package part1.fourinrow.swing;
+package part3.fourinrow.swing;
 
-import part1.fourinrow.core.Board;
-import part1.fourinrow.core.Cell;
-import part1.fourinrow.core.Chip;
+import part3.fourinrow.core.Board;
+import part3.fourinrow.core.Cell;
+import part3.fourinrow.core.Chip;
 
 import javax.swing.*;
 import java.awt.*;

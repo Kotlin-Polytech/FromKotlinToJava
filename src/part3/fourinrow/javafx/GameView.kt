@@ -1,12 +1,12 @@
-package part1.fourinrow.javafx
+package part3.fourinrow.javafx
 
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.layout.BorderPane
 import javafx.scene.paint.Color
-import part1.fourinrow.core.Board
-import part1.fourinrow.core.Cell
-import part1.fourinrow.core.Chip
+import part3.fourinrow.core.Board
+import part3.fourinrow.core.Cell
+import part3.fourinrow.core.Chip
 import tornadofx.*
 
 class GameView : View() {

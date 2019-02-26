@@ -1,8 +1,7 @@
-package part1.fourinrow.console;
+package part3.fourinrow.console;
 
-import part1.fourinrow.core.Board;
-import part1.fourinrow.core.Cell;
-import part1.fourinrow.core.Chip;
+import part3.fourinrow.core.Board;
+import part3.fourinrow.core.Chip;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

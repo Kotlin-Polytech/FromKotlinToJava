@@ -1,4 +1,4 @@
-package part1.fourinrow.swing;
+package part3.fourinrow.swing;
 
 import javax.swing.*;
 import java.awt.event.*;

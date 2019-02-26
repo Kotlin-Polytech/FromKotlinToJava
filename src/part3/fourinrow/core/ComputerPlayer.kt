@@ -1,4 +1,4 @@
-package part1.fourinrow.core
+package part3.fourinrow.core
 
 import java.util.*
 
