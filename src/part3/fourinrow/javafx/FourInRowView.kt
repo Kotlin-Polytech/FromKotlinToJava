@@ -7,6 +7,7 @@ import javafx.scene.paint.Color
 import part3.fourinrow.core.Board
 import part3.fourinrow.core.Cell
 import part3.fourinrow.core.Chip
+import part3.fourinrow.core.ComputerPlayer
 import tornadofx.*
 
 class FourInRowView : View() {
@@ -16,6 +17,15 @@ class FourInRowView : View() {
     private val rowsNumber = 6
 
     private val board = Board(columnsNumber, rowsNumber)
+
+    private val yellowComputer =
+            if ((app as FourInRowApp).yellowHuman) null else ComputerPlayer(board)
+
+    private val redComputer =
+            if ((app as FourInRowApp).redHuman) null else ComputerPlayer(board)
+
+    private val computerToMakeTurn: ComputerPlayer?
+        get() = if (board.turn == Chip.YELLOW) yellowComputer else redComputer
 
     private val buttons = mutableMapOf<Cell, Button>()
 
@@ -57,6 +67,7 @@ class FourInRowView : View() {
                                             val turnCell = board.makeTurn(column)
                                             if (turnCell != null) {
                                                 updateBoardAndStatus(turnCell)
+                                                computerToMakeTurn?.let { makeComputerTurn(it) }
                                             }
                                         }
                                     }
@@ -103,4 +114,14 @@ class FourInRowView : View() {
             }
         }
     }
+
+    private fun makeComputerTurn(playerToMakeTurn: ComputerPlayer) {
+        val turn = playerToMakeTurn.bestTurn(2)
+        val x = turn.turn
+        if (x != null) {
+            val cell = board.makeTurn(x)
+            updateBoardAndStatus(cell)
+        }
+    }
+
 }
