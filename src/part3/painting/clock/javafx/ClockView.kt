@@ -65,7 +65,7 @@ class ClockView : View() {
 
     private class Hand(val relativeLength: Double, val color: Color, val parent: Parent) {
 
-        lateinit var path: Path
+        val path: Path
 
         val length get() = relativeLength * with (parent.parent as BorderPane) {
             minOf(minWidth, minHeight) / 2.0
