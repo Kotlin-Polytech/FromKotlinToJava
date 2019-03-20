@@ -9,8 +9,11 @@ import part3.fourinrow.core.Cell
 import part3.fourinrow.core.Chip
 import part3.fourinrow.core.ComputerPlayer
 import tornadofx.*
+import kotlin.concurrent.timer
 
 class FourInRowView : View() {
+
+    private data class AutoTurnEvent(val player: ComputerPlayer) : FXEvent()
 
     private val columnsNumber = 7
 
@@ -49,6 +52,7 @@ class FourInRowView : View() {
                             }
                         }
                         inProcess = true
+                        startTimerIfNeeded()
                     }
                     gridpane {
                         hgap = 5.0
@@ -79,9 +83,29 @@ class FourInRowView : View() {
                     statusLabel = label("")
                 }
             }
+
+            subscribe<AutoTurnEvent> {
+                makeComputerTurn(it.player)
+            }
         }
 
         updateBoardAndStatus()
+        startTimerIfNeeded()
+    }
+
+    private fun startTimerIfNeeded() {
+        if (yellowComputer != null) {
+            timer(daemon = true, period = 1000) {
+                if (inProcess) {
+                    fire(AutoTurnEvent(computerToMakeTurn!!))
+                    if (redComputer == null) {
+                        this.cancel()
+                    }
+                } else {
+                    this.cancel()
+                }
+            }
+        }
     }
 
     private fun updateBoardAndStatus(cell: Cell? = null) {
