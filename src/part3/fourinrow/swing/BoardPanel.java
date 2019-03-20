@@ -44,8 +44,8 @@ public class BoardPanel extends JPanel {
         updateContent(new Cell(0, 0));
         if (yellowComputer != null && redComputer != null) {
             Timer timer = new Timer(1000, e -> {
-                ComputerPlayer playerToMakeTurn1 = board.getTurn() == Chip.YELLOW ? yellowComputer : redComputer;
-                makeComputerTurn(playerToMakeTurn1);
+                ComputerPlayer playerToMakeTurn = board.getTurn() == Chip.YELLOW ? yellowComputer : redComputer;
+                makeComputerTurn(playerToMakeTurn);
             });
             timer.start();
         }
