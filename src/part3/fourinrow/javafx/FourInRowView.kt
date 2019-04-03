@@ -88,7 +88,7 @@ class FourInRowView : View() {
                                         val turnCell = board.makeTurn(column)
                                         if (turnCell != null) {
                                             updateBoardAndStatus(turnCell)
-                                            computerToMakeTurn?.let { makeComputerTurn(it) }
+                                            computerToMakeTurn?.makeComputerTurn()
                                         }
                                     }
                                 }
@@ -103,7 +103,7 @@ class FourInRowView : View() {
             }
 
             subscribe<AutoTurnEvent> {
-                makeComputerTurn(it.player)
+                it.player.makeComputerTurn()
             }
         }
 
@@ -180,8 +180,8 @@ class FourInRowView : View() {
         }
     }
 
-    private fun makeComputerTurn(playerToMakeTurn: ComputerPlayer) {
-        val turn = playerToMakeTurn.bestTurn(2)
+    private fun ComputerPlayer.makeComputerTurn() {
+        val turn = bestTurn(2)
         val x = turn.turn
         if (x != null) {
             val cell = board.makeTurn(x)
