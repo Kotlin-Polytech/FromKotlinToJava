@@ -35,6 +35,10 @@ public class Main {
             }
         } while (board.hasFreeCells() && board.winner() == null);
         Chip winner = board.winner();
+        if (winner == null) {
+            System.out.println("Draw!");
+            return;
+        }
         switch (winner) {
             case YELLOW:
                 System.out.println("Yellow wins!");
