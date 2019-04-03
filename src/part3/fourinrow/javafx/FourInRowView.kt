@@ -2,6 +2,7 @@ package part3.fourinrow.javafx
 
 import javafx.scene.control.Button
 import javafx.scene.control.Label
+import javafx.scene.image.ImageView
 import javafx.scene.layout.BorderPane
 import javafx.scene.paint.Color
 import part3.fourinrow.core.Board
@@ -42,46 +43,55 @@ class FourInRowView : View() {
         title = "Four in Row"
 
         with (root) {
-            center {
+            top {
                 vbox {
-                    button("Restart game").setOnAction {
-                        board.clear()
-                        for (x in 0 until columnsNumber) {
-                            for (y in 0 until rowsNumber) {
-                                updateBoardAndStatus(Cell(x, y))
-                            }
-                        }
-                        inProcess = true
-                        startTimerIfNeeded()
-                    }
-                    gridpane {
-                        hgap = 5.0
-                        vgap = 5.0
-                        for (row in 0 until rowsNumber) {
-                            row {
-                                for (column in 0 until columnsNumber) {
-                                    val cell = Cell(column, rowsNumber - 1 - row)
-                                    val button = button {
-                                        style {
-                                            backgroundColor += Color.GRAY
-                                        }
-                                    }
-                                    button.setOnAction {
-                                        if (inProcess) {
-                                            val turnCell = board.makeTurn(column)
-                                            if (turnCell != null) {
-                                                updateBoardAndStatus(turnCell)
-                                                computerToMakeTurn?.let { makeComputerTurn(it) }
-                                            }
-                                        }
-                                    }
-                                    buttons[cell] = button
-                                }
+                    menubar {
+                        menu("Game") {
+                            item("Restart").action {
+                                restartGame()
                             }
                         }
                     }
-                    statusLabel = label("")
+                    toolbar {
+                        button(graphic = ImageView("/restart.png").apply {
+                            fitWidth = 16.0
+                            fitHeight = 16.0
+                        }).action {
+                            restartGame()
+                        }
+                    }
                 }
+            }
+            center {
+                gridpane {
+                    hgap = 5.0
+                    vgap = 5.0
+                    for (row in 0 until rowsNumber) {
+                        row {
+                            for (column in 0 until columnsNumber) {
+                                val cell = Cell(column, rowsNumber - 1 - row)
+                                val button = button {
+                                    style {
+                                        backgroundColor += Color.GRAY
+                                    }
+                                }
+                                button.setOnAction {
+                                    if (inProcess) {
+                                        val turnCell = board.makeTurn(column)
+                                        if (turnCell != null) {
+                                            updateBoardAndStatus(turnCell)
+                                            computerToMakeTurn?.let { makeComputerTurn(it) }
+                                        }
+                                    }
+                                }
+                                buttons[cell] = button
+                            }
+                        }
+                    }
+                }
+            }
+            bottom {
+                statusLabel = label("")
             }
 
             subscribe<AutoTurnEvent> {
@@ -90,6 +100,17 @@ class FourInRowView : View() {
         }
 
         updateBoardAndStatus()
+        startTimerIfNeeded()
+    }
+
+    private fun restartGame() {
+        board.clear()
+        for (x in 0 until columnsNumber) {
+            for (y in 0 until rowsNumber) {
+                updateBoardAndStatus(Cell(x, y))
+            }
+        }
+        inProcess = true
         startTimerIfNeeded()
     }
 
@@ -113,15 +134,15 @@ class FourInRowView : View() {
         statusLabel.text = when {
             !board.hasFreeCells() -> {
                 inProcess = false
-                "Draw! Press 'Restart game' to continue"
+                "Draw! Press 'Restart' to continue"
             }
             winner == Chip.YELLOW -> {
                 inProcess = false
-                "Yellows win! Press 'Restart game' to continue"
+                "Yellows win! Press 'Restart' to continue"
             }
             winner == Chip.RED -> {
                 inProcess = false
-                "Reds win! Press 'Restart game' to continue"
+                "Reds win! Press 'Restart' to continue"
             }
             board.turn == Chip.YELLOW ->
                 "Game in process: Yellows turn"
