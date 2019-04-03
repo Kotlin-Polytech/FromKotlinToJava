@@ -1,6 +1,7 @@
 package part3.fourinrow.javafx
 
 import javafx.scene.control.Button
+import javafx.scene.control.ButtonBar
 import javafx.scene.control.Label
 import javafx.scene.image.ImageView
 import javafx.scene.layout.BorderPane
@@ -22,10 +23,10 @@ class FourInRowView : View() {
 
     private val board = Board(columnsNumber, rowsNumber)
 
-    private val yellowComputer =
+    private var yellowComputer =
             if ((app as FourInRowApp).yellowHuman) null else ComputerPlayer(board)
 
-    private val redComputer =
+    private var redComputer =
             if ((app as FourInRowApp).redHuman) null else ComputerPlayer(board)
 
     private val computerToMakeTurn: ComputerPlayer?
@@ -49,6 +50,9 @@ class FourInRowView : View() {
                         menu("Game") {
                             item("Restart").action {
                                 restartGame()
+                            }
+                            item("Configure & restart").action {
+                                reconfigureGame()
                             }
                             separator()
                             item("Exit").action {
@@ -116,6 +120,18 @@ class FourInRowView : View() {
         }
         inProcess = true
         startTimerIfNeeded()
+    }
+
+    private fun reconfigureGame() {
+        val dialog = ChoosePlayerDialog()
+        val result = dialog.showAndWait()
+        if (result.isPresent && result.get().buttonData == ButtonBar.ButtonData.OK_DONE) {
+            yellowComputer = if (dialog.yellowComputer) ComputerPlayer(board) else null
+            redComputer = if (dialog.redComputer) ComputerPlayer(board) else null
+            restartGame()
+        } else {
+            close()
+        }
     }
 
     private fun startTimerIfNeeded() {
