@@ -74,6 +74,7 @@ class FourInRowView : View() {
                 gridpane {
                     hgap = 5.0
                     vgap = 5.0
+                    val dimension = Dimension(64.0, Dimension.LinearUnits.px)
                     for (row in 0 until rowsNumber) {
                         row {
                             for (column in 0 until columnsNumber) {
@@ -81,9 +82,11 @@ class FourInRowView : View() {
                                 val button = button {
                                     style {
                                         backgroundColor += Color.GRAY
+                                        minWidth = dimension
+                                        minHeight = dimension
                                     }
                                 }
-                                button.setOnAction {
+                                button.action {
                                     if (inProcess) {
                                         val turnCell = board.makeTurn(column)
                                         if (turnCell != null) {
@@ -171,7 +174,7 @@ class FourInRowView : View() {
         }
         if (cell == null) return
         val chip = board[cell]
-        buttons[cell]?.style {
+        buttons[cell]?.style(append = true) {
             backgroundColor += when (chip) {
                 null -> Color.GRAY
                 Chip.YELLOW -> Color.YELLOW
