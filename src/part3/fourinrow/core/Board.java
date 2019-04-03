@@ -83,6 +83,13 @@ public class Board {
 
     @Nullable
     public Chip winner() {
+        WinningCombo combo = winningCombo();
+        if (combo == null) return null;
+        return combo.getWinner();
+    }
+
+    @Nullable
+    public WinningCombo winningCombo() {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 Cell cell = new Cell(x, y);
@@ -96,7 +103,7 @@ public class Board {
                         current = current.plus(dir);
                         if (get(current) != startChip) break;
                     }
-                    if (length == TO_WIN_LENGTH) return startChip;
+                    if (length == TO_WIN_LENGTH) return new WinningCombo(startChip, cell, current, dir);
                 }
                 // Straight-forward style
 //                int i;

@@ -154,7 +154,8 @@ class FourInRowView : View() {
     }
 
     private fun updateBoardAndStatus(cell: Cell? = null) {
-        val winner = board.winner()
+        val winningCombo = board.winningCombo()
+        val winner = winningCombo?.winner
         statusLabel.text = when {
             !board.hasFreeCells() -> {
                 inProcess = false
@@ -182,6 +183,23 @@ class FourInRowView : View() {
                     Chip.YELLOW -> Color.YELLOW
                     Chip.RED -> Color.RED
                 }
+            }
+        }
+        if (winner != null) {
+            val startCell = winningCombo.startCell
+            val endCell = winningCombo.endCell
+            var currentCell = startCell
+            while (true) {
+                buttons[currentCell]?.apply {
+                    graphic = circle(radius = 12.0) {
+                        fill = when (winner) {
+                            Chip.YELLOW -> Color.YELLOW
+                            Chip.RED -> Color.RED
+                        }
+                    }
+                }
+                if (currentCell == endCell) break
+                currentCell = currentCell.plus(winningCombo.direction)
             }
         }
     }
