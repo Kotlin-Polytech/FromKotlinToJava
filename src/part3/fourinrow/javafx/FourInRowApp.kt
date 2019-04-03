@@ -1,7 +1,7 @@
 package part3.fourinrow.javafx
 
 import javafx.application.Application
-import javafx.scene.control.ButtonType
+import javafx.scene.control.ButtonBar
 import javafx.stage.Stage
 import tornadofx.App
 
@@ -20,7 +20,7 @@ class FourInRowApp : App(FourInRowView::class) {
         val dialog = ChoosePlayerDialog()
         //Retrieves response value.
         val result = dialog.showAndWait()
-        if (result.isPresent && result.get() == ButtonType.OK) {
+        if (result.isPresent && result.get().buttonData == ButtonBar.ButtonData.OK_DONE) {
             yellowHuman = !dialog.yellowComputer
             redHuman = !dialog.redComputer
             super.start(stage)
