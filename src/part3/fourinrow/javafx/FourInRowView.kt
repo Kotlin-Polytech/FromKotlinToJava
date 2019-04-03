@@ -6,7 +6,6 @@ import javafx.scene.control.Label
 import javafx.scene.image.ImageView
 import javafx.scene.layout.BorderPane
 import javafx.scene.paint.Color
-import javafx.scene.paint.Paint
 import part3.fourinrow.core.Board
 import part3.fourinrow.core.Cell
 import part3.fourinrow.core.Chip
