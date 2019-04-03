@@ -6,6 +6,7 @@ import javafx.scene.control.Label
 import javafx.scene.image.ImageView
 import javafx.scene.layout.BorderPane
 import javafx.scene.paint.Color
+import javafx.scene.paint.Paint
 import part3.fourinrow.core.Board
 import part3.fourinrow.core.Cell
 import part3.fourinrow.core.Chip
@@ -174,11 +175,13 @@ class FourInRowView : View() {
         }
         if (cell == null) return
         val chip = board[cell]
-        buttons[cell]?.style(append = true) {
-            backgroundColor += when (chip) {
-                null -> Color.GRAY
-                Chip.YELLOW -> Color.YELLOW
-                Chip.RED -> Color.RED
+        buttons[cell]?.apply {
+            graphic = circle(radius = 24.0) {
+                fill = when (chip) {
+                    null -> Color.GRAY
+                    Chip.YELLOW -> Color.YELLOW
+                    Chip.RED -> Color.RED
+                }
             }
         }
     }
