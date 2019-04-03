@@ -45,7 +45,7 @@ class Graph {
             if (next == finish) return distance
             for (neighbor in next.neighbors) {
                 if (neighbor in visited) continue
-                visited.put(neighbor, distance + 1)
+                visited[neighbor] = distance + 1
                 queue.add(neighbor)
             }
         }
@@ -66,8 +66,8 @@ class Graph {
             if (start == finish) 0
             else {
                 val min = start.neighbors.filter { it !in visited }
-                        .map { dfs(it, finish, visited + start) }
-                        .filterNotNull().min()
+                        .mapNotNull { dfs(it, finish, visited + start) }
+                        .min()
                 if (min == null) null else min + 1
             }
 
@@ -88,7 +88,6 @@ class Graph {
             }
         }
         val min = results.values.map { it.get() }.filter { it >= 0 }.min()
-        if (min != null) return min + 1
-        else return -1
+        return if (min != null) min + 1 else -1
     }
 }

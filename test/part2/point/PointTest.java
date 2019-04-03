@@ -3,9 +3,6 @@ package part2.point;
 import org.junit.Test;
 
 import java.util.*;
-import java.util.function.Predicate;
-
-import static org.junit.Assert.*;
 
 public class PointTest {
 

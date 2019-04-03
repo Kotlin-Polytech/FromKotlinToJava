@@ -284,7 +284,7 @@ public class Way implements Externalizable {
      * @throws IOException если происходит ошибка ввода-вывода
      */
     @Override
-    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+    public void readExternal(ObjectInput in) throws IOException {
         // Версия
         final int version = in.readInt();
         if (version > 1)
