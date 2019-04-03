@@ -50,6 +50,10 @@ class FourInRowView : View() {
                             item("Restart").action {
                                 restartGame()
                             }
+                            separator()
+                            item("Exit").action {
+                                this@FourInRowView.close()
+                            }
                         }
                     }
                     toolbar {
