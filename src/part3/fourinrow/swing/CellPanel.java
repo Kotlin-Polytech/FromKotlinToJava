@@ -1,5 +1,6 @@
 package part3.fourinrow.swing;
 
+import part3.fourinrow.controller.CellListener;
 import part3.fourinrow.core.Board;
 import part3.fourinrow.core.Cell;
 import part3.fourinrow.core.Chip;
@@ -16,7 +17,7 @@ public class CellPanel extends JPanel {
 
     private final Board board;
 
-    public CellPanel(Cell cell, Board board, SwingCellListener listener) {
+    public CellPanel(Cell cell, Board board, CellListener listener) {
         this.cell = cell;
         this.board = board;
         setBorder(BorderFactory.createLineBorder(Color.BLACK));

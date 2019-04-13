@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import part3.fourinrow.core.Board;
 import part3.fourinrow.core.Cell;
 
-public abstract class BoardBasedCellListener implements CellListener {
+public class BoardBasedCellListener implements CellListener {
 
     private final Board board;
 
@@ -15,10 +15,7 @@ public abstract class BoardBasedCellListener implements CellListener {
     @Override
     public void cellClicked(@NotNull Cell cell) {
         if (board.winner() == null) {
-            Cell turnCell = board.makeTurn(cell.getX());
-            updateView(turnCell);
+            board.makeTurn(cell.getX());
         }
     }
-
-    abstract protected void updateView(@NotNull Cell cell);
 }

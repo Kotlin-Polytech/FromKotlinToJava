@@ -65,7 +65,7 @@ class ComputerPlayer(private val board: Board) {
         if (depth <= 0) return EvaluatedTurn(null, evaluation(board.turn))
         var result = EvaluatedTurn(null, -1000000)
         for (turn in 0 until board.width) {
-            if (board.makeTurn(turn) == null) continue
+            if (board.makeTurnNoEvent(turn) == null) continue
             val evaluation = -bestTurnMinMax( depth - 1).evaluation
             board.takeTurnBack(turn)
             if (evaluation > result.evaluation) {
@@ -87,7 +87,7 @@ class ComputerPlayer(private val board: Board) {
         var lower = lowerBound
         var result = EvaluatedTurn(null, lower)
         for (turn in 0 until board.width) {
-            if (board.makeTurn(turn) == null) continue
+            if (board.makeTurnNoEvent(turn) == null) continue
             val evaluation = -bestTurn(
                     depth = depth - 1,
                     lowerBound = -upperBound,

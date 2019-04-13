@@ -6,14 +6,12 @@ import javafx.scene.control.Label
 import javafx.scene.image.ImageView
 import javafx.scene.layout.BorderPane
 import javafx.scene.paint.Color
-import part3.fourinrow.core.Board
-import part3.fourinrow.core.Cell
-import part3.fourinrow.core.Chip
-import part3.fourinrow.core.ComputerPlayer
+import part3.fourinrow.controller.BoardBasedCellListener
+import part3.fourinrow.core.*
 import tornadofx.*
 import kotlin.concurrent.timer
 
-class FourInRowView : View() {
+class FourInRowView : View(), BoardListener {
 
     private data class AutoTurnEvent(val player: ComputerPlayer) : FXEvent()
 
@@ -29,7 +27,7 @@ class FourInRowView : View() {
     private var redComputer =
             if ((app as FourInRowApp).redHuman) null else ComputerPlayer(board)
 
-    internal val computerToMakeTurn: ComputerPlayer?
+    private val computerToMakeTurn: ComputerPlayer?
         get() = if (board.turn == Chip.YELLOW) yellowComputer else redComputer
 
     private val buttons = mutableMapOf<Cell, Button>()
@@ -42,7 +40,8 @@ class FourInRowView : View() {
 
     init {
         title = "Four in Row"
-        val listener = JavafxCellListener(board, this)
+        val listener = BoardBasedCellListener(board)
+        board.registerListener(this)
 
         with (root) {
             top {
@@ -135,12 +134,11 @@ class FourInRowView : View() {
     }
 
     private fun startTimerIfNeeded() {
-        if (yellowComputer != null) {
+        if (yellowComputer != null || redComputer != null) {
             timer(daemon = true, period = 1000) {
                 if (inProcess) {
-                    fire(AutoTurnEvent(computerToMakeTurn!!))
-                    if (redComputer == null) {
-                        this.cancel()
+                    computerToMakeTurn?.let {
+                        fire(AutoTurnEvent(it))
                     }
                 } else {
                     this.cancel()
@@ -149,7 +147,11 @@ class FourInRowView : View() {
         }
     }
 
-    internal fun updateBoardAndStatus(cell: Cell? = null) {
+    override fun turnMade(cell: Cell) {
+        updateBoardAndStatus(cell)
+    }
+
+    private fun updateBoardAndStatus(cell: Cell? = null) {
         val winningCombo = board.winningCombo()
         val winner = winningCombo?.winner
         statusLabel.text = when {
@@ -200,12 +202,11 @@ class FourInRowView : View() {
         }
     }
 
-    internal fun ComputerPlayer.makeComputerTurn() {
+    private fun ComputerPlayer.makeComputerTurn() {
         val turn = bestTurn(2)
         val x = turn.turn
         if (x != null) {
-            val cell = board.makeTurn(x)
-            updateBoardAndStatus(cell)
+            board.makeTurn(x)
         }
     }
 

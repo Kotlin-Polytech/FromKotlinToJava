@@ -21,6 +21,9 @@ public class Board {
     @NotNull
     private Chip turn = Chip.YELLOW;
 
+    @Nullable
+    private BoardListener listener = null;
+
     public Board(int width, int height) {
         this.width = width;
         this.height = height;
@@ -33,6 +36,10 @@ public class Board {
     public void clear() {
         chips.clear();
         turn = Chip.YELLOW;
+    }
+
+    public void registerListener(@NotNull BoardListener listener) {
+        this.listener = listener;
     }
 
     @Nullable
@@ -51,12 +58,23 @@ public class Board {
     }
 
     public Cell makeTurn(int x) {
+        return makeTurn(x, true);
+    }
+
+    public Cell makeTurnNoEvent(int x) {
+        return makeTurn(x, false);
+    }
+
+    private Cell makeTurn(int x, boolean withEvent) {
         if (x < 0 || x >= width) return null;
         for (int y = 0; y < height; y++) {
             Cell cell = new Cell(x, y);
             if (!chips.containsKey(cell)) {
                 chips.put(cell, turn);
                 turn = turn.opposite();
+                if (listener != null && withEvent) {
+                    listener.turnMade(cell);
+                }
                 return cell;
             }
         }
