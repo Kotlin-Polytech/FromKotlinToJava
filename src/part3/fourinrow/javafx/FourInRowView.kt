@@ -29,7 +29,7 @@ class FourInRowView : View() {
     private var redComputer =
             if ((app as FourInRowApp).redHuman) null else ComputerPlayer(board)
 
-    private val computerToMakeTurn: ComputerPlayer?
+    internal val computerToMakeTurn: ComputerPlayer?
         get() = if (board.turn == Chip.YELLOW) yellowComputer else redComputer
 
     private val buttons = mutableMapOf<Cell, Button>()
@@ -42,6 +42,7 @@ class FourInRowView : View() {
 
     init {
         title = "Four in Row"
+        val listener = JavafxCellListener(board, this)
 
         with (root) {
             top {
@@ -88,11 +89,7 @@ class FourInRowView : View() {
                                 }
                                 button.action {
                                     if (inProcess) {
-                                        val turnCell = board.makeTurn(column)
-                                        if (turnCell != null) {
-                                            updateBoardAndStatus(turnCell)
-                                            computerToMakeTurn?.makeComputerTurn()
-                                        }
+                                        listener.cellClicked(cell)
                                     }
                                 }
                                 buttons[cell] = button
@@ -152,7 +149,7 @@ class FourInRowView : View() {
         }
     }
 
-    private fun updateBoardAndStatus(cell: Cell? = null) {
+    internal fun updateBoardAndStatus(cell: Cell? = null) {
         val winningCombo = board.winningCombo()
         val winner = winningCombo?.winner
         statusLabel.text = when {
@@ -203,7 +200,7 @@ class FourInRowView : View() {
         }
     }
 
-    private fun ComputerPlayer.makeComputerTurn() {
+    internal fun ComputerPlayer.makeComputerTurn() {
         val turn = bestTurn(2)
         val x = turn.turn
         if (x != null) {

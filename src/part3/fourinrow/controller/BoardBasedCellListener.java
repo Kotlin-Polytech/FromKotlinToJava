@@ -15,8 +15,8 @@ public abstract class BoardBasedCellListener implements CellListener {
     @Override
     public void cellClicked(@NotNull Cell cell) {
         if (board.winner() == null) {
-            board.makeTurn(cell.getX());
-            updateView(cell);
+            Cell turnCell = board.makeTurn(cell.getX());
+            updateView(turnCell);
         }
     }
 
