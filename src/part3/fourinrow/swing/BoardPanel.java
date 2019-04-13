@@ -32,11 +32,12 @@ public class BoardPanel extends JPanel {
         this.statusLabel = statusLabel;
         yellowComputer = yellowHuman ? null : new ComputerPlayer(board);
         redComputer = redHuman ? null : new ComputerPlayer(board);
+        SwingCellListener listener = new SwingCellListener(board, this);
         setLayout(new GridLayout(HEIGHT, WIDTH));
         for (int y = HEIGHT - 1; y >= 0; y--) {
             for (int x = 0; x < WIDTH; x++) {
                 Cell cell = new Cell(x, y);
-                CellPanel cellPanel = new CellPanel(cell, board, this);
+                CellPanel cellPanel = new CellPanel(cell, board, listener);
                 cellPanelMap.put(cell, cellPanel);
                 add(cellPanel);
             }
@@ -88,6 +89,7 @@ public class BoardPanel extends JPanel {
     }
 
     void updateContent(@NotNull Cell cell) {
+        cellPanelMap.get(cell).repaint();
         ComputerPlayer playerToMakeTurn = board.getTurn() == Chip.YELLOW ? yellowComputer : redComputer;
         if (playerToMakeTurn != null) {
             makeComputerTurn(playerToMakeTurn);

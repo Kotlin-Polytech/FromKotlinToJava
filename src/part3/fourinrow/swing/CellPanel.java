@@ -16,7 +16,7 @@ public class CellPanel extends JPanel {
 
     private final Board board;
 
-    public CellPanel(Cell cell, Board board, BoardPanel parent) {
+    public CellPanel(Cell cell, Board board, SwingCellListener listener) {
         this.cell = cell;
         this.board = board;
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -24,13 +24,7 @@ public class CellPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    if (board.winner() == null) {
-                        board.makeTurn(cell.getX());
-                        repaint();
-                    }
-                }
-                parent.updateContent(cell);
+                listener.cellClicked(cell);
             }
         });
 
