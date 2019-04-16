@@ -52,6 +52,8 @@ public class ChoosePlayersDialog extends JDialog {
     public static void main(String[] args) {
         ChoosePlayersDialog dialog = new ChoosePlayersDialog();
         dialog.pack();
+        dialog.setSize(300, 250);
+        dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
         if (dialog.exit) System.exit(0);
         SwingUtilities.invokeLater(() -> new FourInRowFrame(

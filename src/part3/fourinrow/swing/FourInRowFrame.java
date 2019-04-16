@@ -12,6 +12,7 @@ public class FourInRowFrame extends JFrame {
     FourInRowFrame(boolean yellowHuman, boolean redHuman) {
         super("Four in a row");
         setSize(600, 400);
+        setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         JLabel statusLabel = new JLabel("Yellow, Make your turn");
         add(statusLabel, BorderLayout.SOUTH);
