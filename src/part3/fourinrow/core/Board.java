@@ -65,6 +65,7 @@ public class Board {
         return makeTurn(x, false);
     }
 
+    @Nullable
     private Cell makeTurn(int x, boolean withEvent) {
         if (x < 0 || x >= width) return null;
         for (int y = 0; y < height; y++) {
