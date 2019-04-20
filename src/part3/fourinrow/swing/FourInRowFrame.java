@@ -17,6 +17,17 @@ public class FourInRowFrame extends JFrame {
         JLabel statusLabel = new JLabel("Yellow, Make your turn");
         add(statusLabel, BorderLayout.SOUTH);
         add(new BoardPanel(statusLabel, yellowHuman, redHuman), BorderLayout.CENTER);
+
+        JMenuBar menuBar = new JMenuBar();
+        JMenu commands = new JMenu("Commands");
+        JMenuItem quit = new JMenuItem("Quit");
+        quit.addActionListener(e -> {
+            System.exit(0);
+        });
+        commands.add(quit);
+        menuBar.add(commands);
+        setJMenuBar(menuBar);
+
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
