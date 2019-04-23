@@ -25,30 +25,22 @@ class ChoosePlayerDialog : Dialog<ButtonType>() {
             content = hbox {
                 vbox {
                     label("Yellow")
-                    group {
-                        vbox {
-                            togglegroup {
-                                bind(yellowPlayer)
-                                radiobutton("Human") {
-                                    isSelected = true
-                                }
-                                radiobutton("Computer")
-                            }
+                    togglegroup {
+                        bind(yellowPlayer)
+                        radiobutton("Human") {
+                            isSelected = true
                         }
+                        radiobutton("Computer")
                     }
                 }
                 spacer(Priority.ALWAYS)
                 vbox {
                     label("Red")
-                    group {
-                        vbox {
-                            togglegroup {
-                                bind(redPlayer)
-                                radiobutton("Human")
-                                radiobutton("Computer") {
-                                    isSelected = true
-                                }
-                            }
+                    togglegroup {
+                        bind(redPlayer)
+                        radiobutton("Human")
+                        radiobutton("Computer") {
+                            isSelected = true
                         }
                     }
                 }
