@@ -13,3 +13,4 @@
  1. Библиотека коллекций Java: итераторы, коллекции, потоки, списки -- TODO. [Презентация](http://kspt.icc.spbstu.ru/media/files/2020/java/Java03.pdf)
  1. Библиотека коллекций Java: множества, ассоциативные массивы -- TODO. [Презентация](http://kspt.icc.spbstu.ru/media/files/2020/java/Java04.pdf)
  1. Консольные приложения: командная строка, обработка исключений -- TODO. [Презентация](http://kspt.icc.spbstu.ru/media/files/2020/java/Java05.pdf)
+ 1. [Шаблонные классы (Java/Kotlin)](tutorial/08_Generics.adoc)
