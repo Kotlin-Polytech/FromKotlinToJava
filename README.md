@@ -6,5 +6,10 @@
 
 ## Электронный конспект
 
- 1. [Разработка сложных классов с данными (Kotlin)](https://github.com/Kotlin-Polytech/KotlinAsFirst/blob/master/tutorial/chapter11.adoc)
+ 1. Java: введение, синтаксис -- TODO. [Презентация](http://kspt.icc.spbstu.ru/media/files/2020/java/Java01.pdf)
+ 1. Java: разработка классов с данными и контейнеров -- TODO. [Презентация](http://kspt.icc.spbstu.ru/media/files/2020/java/Java02.pdf)
+ 1. [Разработка классов с данными (Kotlin)](https://github.com/Kotlin-Polytech/KotlinAsFirst/blob/master/tutorial/chapter11.adoc)
  1. [Разработка классов-контейнеров (Kotlin)](https://github.com/Kotlin-Polytech/KotlinAsFirst/blob/master/tutorial/chapter12.adoc)
+ 1. Библиотека коллекций Java: итераторы, коллекции, потоки, списки -- TODO. [Презентация](http://kspt.icc.spbstu.ru/media/files/2020/java/Java03.pdf)
+ 1. Библиотека коллекций Java: множества, ассоциативные массивы -- TODO. [Презентация](http://kspt.icc.spbstu.ru/media/files/2020/java/Java04.pdf)
+ 1. Консольные приложения: командная строка, обработка исключений -- TODO. [Презентация](http://kspt.icc.spbstu.ru/media/files/2020/java/Java05.pdf)
