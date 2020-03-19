@@ -26,10 +26,14 @@ public interface Animal {
 }
 // ... in some class ...
 public void test() {
-    List<Animal> animals = new ArrayList<>(); // При вызове конструктора, мы просим компилятор вывести типовой аргумент ArrayList
-    List<Object> objects = animals; // Является ли список животных списком объектов?
-    objects.add("Some string"); // Можно ли в список объектов добавить строку?
-    animals.get(0).move(); // ???
+    // При вызове конструктора, мы просим компилятор вывести типовой аргумент ArrayList
+    List<Animal> animals = new ArrayList<>(); 
+    // Является ли список животных списком объектов?
+    List<Object> objects = animals; 
+    // Можно ли в список объектов добавить строку?
+    objects.add("Some string"); 
+    // А здесь что происходит? Можно ли так?
+    animals.get(0).move(); 
 }
 ----
 
