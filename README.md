@@ -6,6 +6,8 @@
 
 ## Электронный конспект
 
+Disclaimer: лекции по этому курсу в норме читаются голосом. Электронный конспект делается по необходимости из-за карантина. Именно этим объясняется его разрозненность.
+
  1. Java: введение, синтаксис -- TODO. [Презентация](http://kspt.icc.spbstu.ru/media/files/2020/java/Java01.pdf)
  1. Java: разработка классов с данными и контейнеров -- TODO. [Презентация](http://kspt.icc.spbstu.ru/media/files/2020/java/Java02.pdf)
  1. [Разработка классов с данными (Kotlin)](https://github.com/Kotlin-Polytech/KotlinAsFirst/blob/master/tutorial/chapter11.adoc)
