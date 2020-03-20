@@ -341,10 +341,12 @@ fun test() {
 
 Главы из Effective Java. Joshua Bloch (номера глав даю по второму изданию):
 
- 23. Don't use raw types in new code.
- 25. Prefer lists to arrays.
- 26. Favor generic types.
- 28. Use bounded wildcards to increase API flexibility.
+ * 23. Don't use raw types in new code.
+ * 25. Prefer lists to arrays.
+ * 26. Favor generic types.
+ * 28. Use bounded wildcards to increase API flexibility.
+ 
+Выдержки из Kotlin reference: 
 
  * https://kotlinlang.org/docs/reference/generics.html[Kotlin generics: in, out, where]
  * https://kotlinlang.org/docs/reference/inline-functions.html[Kotlin inline functions]
