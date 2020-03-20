@@ -295,13 +295,56 @@ public void test(Animal animal) {
 
 Добавить в подобный список ничего не удаётся вообще -- параметр метода `add` у `List<E>` имеет тип `E`, а поскольку в данном коде компилятор не знает конкретный тип элементов списка, то эта операция в любом случае небезопасна. С функцией `get` проще -- у неё нет параметров, а тип `E` относится к результату. В данном случае компилятор может безопасно предположить, что результат имеет тип `Object`, а для `List<? extends Animal>` -- даже более точно `Animal`.
 
+== Вопросы для самопроверки
+
+ 1. Чем отличается инвариантность от ковариантности (invariant vs covariant)?
+ 1. Чем отличается стираемость от овеществлённости (erased vs reified)?
+ 1. Какие типы в языке, которым вы пользуетесь, инвариантны? Какие ковариантны?
+ 
+Где в программе на Java ниже будут обнаружены ошибки при компиляции?
+
+[source,java]
+----
+// ... in some class ...
+public void test() {
+    List<Object> list1 = new ArrayList<String>();
+    List<String> list2 = new ArrayList<String>();
+    List<String> list3 = new ArrayList<Object>();
+    Object[] array1 = new String[10];
+    String[] array2 = new String[10];
+    String[] array3 = new Object[10];    
+}
+----
+
+Где в программе на Kotlin ниже будут обнаружены ошибки при компиляции?
+
+[source,java]
+----
+fun test() {
+    val list1: List<Any> = listOf<String>()
+    val list2: List<String> = listOf<String>()
+    val list3: List<String> = listOf<Any>()
+    val list4: List<Any> = mutableListOf<String>()
+    val list5: List<String> = mutableListOf<String>()
+    val list6: List<String> = mutableListOf<Any>()
+
+    val mutableList1: MutableList<Any> = listOf<String>()
+    val mutableList2: MutableList<String> = listOf<String>()
+    val mutableList3: MutableList<String> = listOf<Any>()
+    val mutableList4: MutableList<Any> = mutableListOf<String>()
+    val mutableList5: MutableList<String> = mutableListOf<String>()
+    val mutableList6: MutableList<String> = mutableListOf<Any>()
+}
+----
+
 == Литература для самостоятельного чтения
 
-Effective Java. Joshua Bloch (номера глав даю по второму изданию):
+Главы из Effective Java. Joshua Bloch (номера глав даю по второму изданию):
 
  23. Don't use raw types in new code.
  25. Prefer lists to arrays.
  26. Favor generic types.
  28. Use bounded wildcards to increase API flexibility.
 
-https://kotlinlang.org/docs/reference/generics.html[Kotlin generics: in, out, where]
+ * https://kotlinlang.org/docs/reference/generics.html[Kotlin generics: in, out, where]
+ * https://kotlinlang.org/docs/reference/inline-functions.html[Kotlin inline functions]
