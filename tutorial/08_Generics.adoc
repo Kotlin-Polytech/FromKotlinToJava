@@ -80,7 +80,7 @@ public void test() {
 // ... in some class ...
 public void test() {
     List<Animal> animals = new ArrayList<>(); 
-    List<Object> objects = animals; // ERROR: type mismatch
+    List<Object> objects = animals; // ERROR: incompatible types
     objects.add("Some string"); 
     animals.get(0).move(); 
 }
@@ -112,7 +112,7 @@ public void test() {
 [source,kotlin]
 ----
 fun test(animals: Array<Animal>) {
-    val objects: Array<Object> = animals // ERROR: type mismatch
+    val objects: Array<Any> = animals // ERROR: type mismatch
 }
 ----
 
@@ -144,7 +144,7 @@ public void test() {
 [source,kotlin]
 ----
 fun test(animals: List<Animal>) {
-    val objects: List<Object> = animals // OK, List is covariant
+    val objects: List<Any> = animals // OK, List is covariant
     objects[0].toString()               // OK: у животного, как и у любого объекта, есть toString()
     objects[0] = "Some string"          // ERROR: List is immutable
 }
@@ -159,7 +159,7 @@ fun test(animals: List<Animal>) {
 // ... in some class ...
 public void test(Horse horse) {
     List animals = new ArrayList();   // Программист надеется, что по названию запомнит, что это животные...
-    animals.add(horse);               // OK
+    animals.add(horse);               // WARNING: unchecked call
     ((Animal) animals.get(0)).move(); // Приходится всюду писать преобразования типов...
     use(animals);                     // OK (здесь список и там список)
     ((Animal) animals.get(1)).move(); // Внезапно, ClassCastException -- там оказалась строка...
@@ -169,7 +169,7 @@ public void use(List objects) {
 }
 ----
 
-Подобный код будет компилироваться и в нынешней версии Java, однако вы получите ряд предупреждений об использовании raw types. Минусы их должны быть видны из этого примера -- лишние, а иногда и небезопасные, преобразования типов. Проблемы, которые шаблонные классы при явном указании типа элементов позволяют находить во время компиляции, здесь находятся только во время выполнения программы, что всегда хуже.
+Подобный код будет компилироваться и в нынешней версии Java, однако вы получите ряд предупреждений об так называемых unchecked call -- вызовах без проверок типов элементов. Минусы их должны быть видны из этого примера -- лишние, а иногда и небезопасные, преобразования типов. Проблемы, которые шаблонные классы при явном указании типа элементов позволяют находить во время компиляции, здесь находятся только во время выполнения программы, что всегда хуже.
 
 С точки зрения системы типов сырой список совместим с любым списком, что тоже отрицательно влияет на безопасность. Например:
 
@@ -178,12 +178,12 @@ public void use(List objects) {
 // ... in some class ...
 public void test() {
     List<Animal> animals = new ArrayList<>();
-    List objects = animals;         // WARNING
-    List<String> strings = objects; // WARNING again
+    List objects = animals;         
+    List<String> strings = objects; // WARNING: unchecked assignment
 }
 ----
 
-В этом коде мы получим два предупреждения, но он компилируется. В результате компилятор думает, что `strings` содержит строки, хотя на самом деле это не так. Это легко позволяет вызвать ошибку во время выполнения (сделайте это сами, пожалуйста).
+В этом коде мы получим предупреждение, но он компилируется. В результате компилятор думает, что `strings` содержит строки, хотя на самом деле это не так. Это легко позволяет вызвать ошибку во время выполнения (добейтесь это сами, пожалуйста).
 
 == Литература для самостоятельного чтения
 
