@@ -318,7 +318,7 @@ public void test() {
 
 Где в программе на Kotlin ниже будут обнаружены ошибки при компиляции?
 
-[source,java]
+[source,kotlin]
 ----
 fun test() {
     val list1: List<Any> = listOf<String>()
