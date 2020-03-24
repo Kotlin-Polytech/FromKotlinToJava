@@ -1,0 +1,5 @@
+= Командная строка, исключения
+
+Внимание: этот раздел напрямую связан с выполнением второго практического задания. 
+Пример его выполнения на Java и Kotlin см. 
+https://github.com/Kotlin-Polytech/FromKotlinToJava/tree/master/src/part2/recode[в этом же репозитории]. 
