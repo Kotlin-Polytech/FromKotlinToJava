@@ -54,7 +54,9 @@ java -jar SomeProject.jar
 ----
 public class SomeClass {
     public static void main(String[] args) {
-        // args[0] = нулевой аргумент командной строки, args[1] = первый и т.д., args.length = число заданных аргументов
+        // args[0] = нулевой аргумент командной строки, 
+        // args[1] = первый и т.д., 
+        // args.length = число заданных аргументов
     }
 }
 ----
