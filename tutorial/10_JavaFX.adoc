@@ -159,6 +159,91 @@ image::https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/MVC-Process.png
 
 Некоторые возможности JavaFX и tornadofx проиллюстрированы в пакете https://github.com/Kotlin-Polytech/FromKotlinToJava/tree/master/src/part3/fourinrow/javafx[javafx]. Он содержит классы `FourInRowApp`, `ChoosePlayerDialog` и `FourInRowView`. Поговорим о них подробнее.
 
+=== Запуск приложения
+
+Логика, выполняющаяся при запуске приложения, описывается https://github.com/Kotlin-Polytech/FromKotlinToJava/blob/master/src/part3/fourinrow/javafx/FourInRowApp.kt[в методе start] наследника класса App. Если этот метод не переопределяется, он выполняет действия по умолчанию вроде этих.
+
+[source,java]
+----
+    public void start(Stage primaryStage) {
+        Group root = new Group(); 
+        Scene scene = new Scene(root, 400, 300); 
+        primaryStage.setScene(scene);         
+        primaryStage.setTitle("Hello, JavaFX");     
+        primaryStage.show(); 
+    }    
+----
+
+Во многих случаях, однако, логика запуска приложения не ограничивается созданием одного окна. В частности, Intellij IDEA, будучи запущенной в первый раз, перед запуском основного окна с редактором демонстрирует нам окно создания нового проекта, а также в ходе своей инициализации показывает так называемый Splash Screen. Приложение "4 в ряд" тоже перед появлением на экране основного окна предлагает нам с помощью уже знакомого https://github.com/Kotlin-Polytech/FromKotlinToJava/blob/master/src/part3/fourinrow/javafx/ChoosePlayerDialog.kt[диалога] выбрать участников игры. 
+
+=== Диалоги в графических приложениях
+
+Диалогом обычно называется особый вид окна, предлагающий пользователю сделать некий выбор. Он отличается от обычного окна своей *модальностью* -- если диалог появился на экране, нам не удастся его убрать и переключиться на другое окно данного приложения до тех пор, пока мы не сделаем требуемый выбор и не закроем диалог нажатием одной из кнопок в нём (как, скажем, Start game и Quit в рассматриваемой игре). В частности, окна сохранения и загрузки файла в Microsoft Word и других известных приложениях тоже являются диалогами.
+
+В JavaFX класс `Dialog` содержит обёртку над узлом `DialogPane` -- панелью диалога. Наследник класса, например `ChoosePlayerDialog`, устанавливает содержимое этой панели.
+
+[source,kotlin]
+----
+class ChoosePlayerDialog : Dialog<ButtonType>() {
+    private val model = ViewModel()
+
+    private val yellowPlayer = model.bind { SimpleStringProperty() }
+    val yellowComputer: Boolean get() = yellowPlayer.value == "Computer"
+
+    private val redPlayer = model.bind { SimpleStringProperty() }
+    val redComputer: Boolean get() = redPlayer.value == "Computer"
+
+    init {
+        title = "Four-in-Row"
+        with (dialogPane) {
+            headerText = "Choose players"
+            buttonTypes.add(ButtonType("Start Game", ButtonBar.ButtonData.OK_DONE))
+            buttonTypes.add(ButtonType("Quit", ButtonBar.ButtonData.CANCEL_CLOSE))
+            content = hbox {
+                vbox {
+                    label("Yellow")
+                    togglegroup {
+                        bind(yellowPlayer)
+                        radiobutton("Human") {
+                            isSelected = true
+                        }
+                        radiobutton("Computer")
+                    }
+                }
+                spacer(Priority.ALWAYS)
+                vbox {
+                    label("Red")
+                    togglegroup {
+                        bind(redPlayer)
+                        radiobutton("Human")
+                        radiobutton("Computer") {
+                            isSelected = true
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+----
+
+В начале нашего рассказа мы уже вкратце обсудили механизм вкладывания узлов друг в друга, который использует DSL tornadofx. Здесь вложение узлов описывается на уровне DSL фигурными скобками. 
+
+Дополнительным механизмом, часто использующимся в JavaFX диалогах, является связывание "модели" и "представления" диалога с помощью механизма JavaFX-свойств. В данном случае `yellowPlayer` и `redPlayer` как раз и являются строковыми JavaFX-свойствами -- элементами модели диалога `model`. Связывание их с представлением диалога делается в основном коде
+
+[source,kotlin]
+----
+togglegroup {
+    bind(yellowPlayer)
+    radiobutton("Human") {
+        isSelected = true
+    }
+    radiobutton("Computer")
+}
+----
+
+Здесь создаётся "группа выбора" togglegroup с двумя радио-кнопками внутри. Вызов `bind` связывает выбор, сделанный пользователем, с содержимым свойства `yellowPlayer`. Например, если пользователь выбрал кнопку "Human", то и значением `yellowPlayer.value` будет строка "Human". Это позволяет, во-первых, проверить состояние диалога без залезания вглубь его структуры, а во-вторых, изменить это состояние программно через изменение значения свойства `yellowPlayer`. 
+
 == Построитель сцен
 
 Многие графические библиотеки позволяют, как иногда говорят, "писать программы мышкой". Под этим обычно имеют в виду возможность создания графических интерфейсов в редакторе, подобном Paint. Такой редактор включает в себя палитру компонентов и возможность редактировать их различные свойства. Результатом работы редактора, как правило, является описание интерфейса во внутреннем формате (часто с этой целью используется XML-формат) и/или готовый код на языке программирования, создающий нарисованный графический интерфейс.
