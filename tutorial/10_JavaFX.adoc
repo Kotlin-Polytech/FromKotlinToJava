@@ -159,6 +159,24 @@ image::https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/MVC-Process.png
 
 Некоторые возможности JavaFX и tornadofx проиллюстрированы в пакете https://github.com/Kotlin-Polytech/FromKotlinToJava/tree/master/src/part3/fourinrow/javafx[javafx]. Он содержит классы `FourInRowApp`, `ChoosePlayerDialog` и `FourInRowView`. Поговорим о них подробнее.
 
+== Построитель сцен
+
+Многие графические библиотеки позволяют, как иногда говорят, "писать программы мышкой". Под этим обычно имеют в виду возможность создания графических интерфейсов в редакторе, подобном Paint. Такой редактор включает в себя палитру компонентов и возможность редактировать их различные свойства. Результатом работы редактора, как правило, является описание интерфейса во внутреннем формате (часто с этой целью используется XML-формат) и/или готовый код на языке программирования, создающий нарисованный графический интерфейс.
+
+В библиотеке JavaFX с этой целью используется инструмент под названием JavaFX Scene Builder, скачать его можно https://gluonhq.com/products/scene-builder[отсюда]. Построитель сцен (после установки) интегрируется со всеми основными Java IDE, в частности, с https://docs.oracle.com/javafx/scenebuilder/1/use_java_ides/sb-with-intellij.htm[Intellij IDEA] и с https://docs.oracle.com/javafx/2/get_started/fxml_tutorial.htm[NetBeans IDE]. Результатом работы построителя сцен является FXML-файл, код для его использования в программе выглядит примерно так (пример взят с сайта Oracle).
+
+[source,java]
+----
+@Override
+public void start(Stage stage) throws Exception {
+    Parent root = FXMLLoader.load(getClass().getResource("some.fxml"));
+    Scene scene = new Scene(root, 400, 300);
+    stage.setTitle("Welcome to FXML!");
+    stage.setScene(scene);
+    stage.show();
+}
+----
+
 == Дополнительное чтение
 
 * https://openjfx.io/openjfx-docs/[Getting started with JavaFX]
