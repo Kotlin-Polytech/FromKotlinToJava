@@ -106,6 +106,28 @@ public class HelloJavafx extends Application {
 } 
 ----
 
+== Простое приложение на tornadofx
+
+[source,kotlin]
+----
+class HelloView : View("Hello JavaFX") {
+    override val root = BorderPane()
+}
+
+class HelloApp : App(HelloView::class)
+
+fun main(args: Array<String>) {
+    Application.launch(HelloApp::class.java, *args)
+}
+----
+
+Как видно из https://github.com/Kotlin-Polytech/FromKotlinToJava/blob/master/src/part3/simple/hello/javafx/Main.kt[примера выше], tornadofx добавляет к "китам" JavaFX ещё несколько понятий:
+
+* App -- простая обёртка над JavaFX-приложением
+* View -- представление, объединяющее в себе главное окно и его сцену
+
+Для реализации простого tornadofx-приложения нам нужно написать *два* класса -- наследник `View`, в котором обязательно переопределить корневой узел сцены `root` и задать заголовок `View("Hello JavaFX")`, и наследник `App`, который через reflection -- см. `App(HelloView::class)` связывает приложение и представление. Главная функция запускает приложение через `Application.launch`, опять-таки используя reflection. 
+
 == Архитектура GUI-приложений
 
 Когда мы разрабатываем GUI-приложение (GUI = Graphical User Interface), важной задачей является отделение внутренней логики приложения от его графической части. Применительно к языкам Java и Kotlin удобно, например, поместить внутреннюю логику в отдельный пакет и полностью абстрагировать её от графической части -- например, не применять классы и функции из пакетов `javafx` и `tornadofx` и их подпакетов. Это позволяет, в частности:
