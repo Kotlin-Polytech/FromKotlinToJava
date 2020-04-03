@@ -51,7 +51,7 @@ Domain Specific Language позволяет, в частности, описыв
 * Левая вертикальная секция помечена (label) как Yellow и включает в себя группу из двух радио-кнопок (radiobutton) -- из этих кнопок пользователь всегда сможет выбрать только одну. По умолчанию из кнопок Human и Computer выбрана Human
 * Правая вертикальная секция помечена как Red и включает в себя две такие же кнопки, но по умолчанию выбрана Computer
 
-image::https://github.com/Kotlin-Polytech/FromKotlinToJava/tree/master/images/dialog.png[Dialog]
+image::../images/dialog.png[Dialog]
 
 == Архитектура GUI-приложений
 
