@@ -70,5 +70,10 @@ image::../images/dialog.png[Dialog]
 
 image::https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/MVC-Process.png/240px-MVC-Process.png[MVC]
 
+== Дополнительное чтение
 
+* https://www.tutorialspoint.com/javafx/javafx_application.htm[Tutorials' Point: JavaFX Application]
+* https://docs.oracle.com/javafx/2/scenegraph/jfxpub-scenegraph.htm[Oracle: Working with the JavaFX Scene Graph]
+* https://docs.oracle.com/javase/8/javafx/properties-binding-tutorial/binding.htm[Oracle: Using JavaFX Properties and Binding]
+* https://www.jetbrains.com/help/idea/javafx.html[IDEA: Create a new JavaFX project]
 
