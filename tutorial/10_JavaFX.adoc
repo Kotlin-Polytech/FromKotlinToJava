@@ -351,7 +351,7 @@ subscribe<AutoTurnEvent> {
 ----
 @Override
 public void start(Stage stage) throws Exception {
-    Parent root = FXMLLoader.load(getClass().getResource("some.fxml"));
+    Parent root = FXMLLoader.load(getClass().getResource("/some.fxml"));
     Scene scene = new Scene(root, 400, 300);
     stage.setTitle("Welcome to FXML!");
     stage.setScene(scene);
