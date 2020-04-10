@@ -8,12 +8,10 @@ import javafx.scene.layout.Priority
 import tornadofx.*
 
 class ChoosePlayerDialog : Dialog<ButtonType>() {
-    private val model = ViewModel()
-
-    private val yellowPlayer = model.bind { SimpleStringProperty() }
+    private val yellowPlayer = SimpleStringProperty()
     val yellowComputer: Boolean get() = yellowPlayer.value == "Computer"
 
-    private val redPlayer = model.bind { SimpleStringProperty() }
+    private val redPlayer = SimpleStringProperty()
     val redComputer: Boolean get() = redPlayer.value == "Computer"
 
     init {
