@@ -18,3 +18,4 @@ Disclaimer: лекции по этому курсу в норме читаютс
  1. [Шаблонные классы (Java/Kotlin)](tutorial/08_Generics.adoc)
  1. GUI: общие принципы -- TODO. [Презентация](http://kspt.icc.spbstu.ru/media/files/2020/java/Java07.pdf)
  1. [JavaFX-приложения с графическим интерфейсом](tutorial/10_JavaFX.adoc). См. также [Презентация](http://kspt.icc.spbstu.ru/media/files/2020/java/Java09.pdf). Внимание: в презентации рассмотрены дополнительные подробности, которых пока нет в электронном конспекте. Рекомендуется прочитать и то, и другое.
+ 1. [Принципы работы JVM](http://kspt.icc.spbstu.ru/media/files/2020/java/Java10.pdf)
