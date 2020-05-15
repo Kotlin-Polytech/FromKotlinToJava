@@ -20,3 +20,4 @@ Disclaimer: лекции по этому курсу в норме читаютс
  1. [JavaFX-приложения с графическим интерфейсом (Java/Kotlin, задание 3)](tutorial/10_JavaFX.adoc). См. также [Презентация](http://kspt.icc.spbstu.ru/media/files/2020/java/Java09.pdf). Внимание: в презентации рассмотрены дополнительные подробности, которых пока нет в электронном конспекте. Рекомендуется прочитать и то, и другое.
  1. [Принципы работы JVM : Презентация](http://kspt.icc.spbstu.ru/media/files/2020/java/Java10.pdf)
  1. [Web + Java : Презентация](http://kspt.icc.spbstu.ru/media/files/2020/java/Java11.pdf)
+ 1. [Многопоточное программирование : Презентация](http://kspt.icc.spbstu.ru/media/files/2020/java/Java13.pdf). Дополнительно: [корутины](http://bit.do/korutines)
