@@ -17,18 +17,20 @@ public class PrimeStream {
                 .noneMatch(divisor -> number % divisor == 0);
     }
 
+    private static final int LIMIT = 20000000;
+
     public static void main(String[] args) {
         long startTime = Calendar.getInstance().getTimeInMillis();
-        long result = count(1000000);
+        long result = parallelCount(LIMIT);
         long endTime = Calendar.getInstance().getTimeInMillis();
-        System.out.println("Count (sequential) = " + result);
-        System.out.println("Time (sequential) = " + (endTime - startTime));
-
-        startTime = Calendar.getInstance().getTimeInMillis();
-        result = parallelCount(1000000);
-        endTime = Calendar.getInstance().getTimeInMillis();
         System.out.println("Count (parallel) = " + result);
         System.out.println("Time (parallel) = " + (endTime - startTime));
+
+        startTime = Calendar.getInstance().getTimeInMillis();
+        result = count(LIMIT);
+        endTime = Calendar.getInstance().getTimeInMillis();
+        System.out.println("Count (sequential) = " + result);
+        System.out.println("Time (sequential) = " + (endTime - startTime));
     }
 }
 
