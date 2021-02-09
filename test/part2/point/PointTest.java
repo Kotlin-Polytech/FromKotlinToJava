@@ -29,10 +29,10 @@ public class PointTest {
         Point result2 = points2.stream()
                 .min(Comparator.comparingDouble(Point::abs))
                 .get();
-        System.out.println("Closest point: " + result + " with distance: " + result.abs());
-        System.out.println("Time spent: " + (intermediateTime - startTime));
-        System.out.println("Closest point: " + result2 + " with distance: " + result2.abs());
-        System.out.println("Time spent: " + (Calendar.getInstance().getTimeInMillis() - intermediateTime));
+        System.out.println("[Parallel stream mode] Closest point: " + result + " with distance: " + result.abs());
+        System.out.println("[Parallel stream mode] Time spent: " + (intermediateTime - startTime));
+        System.out.println("[  Simple stream mode] Closest point: " + result2 + " with distance: " + result2.abs());
+        System.out.println("[  Simple stream mode] Time spent: " + (Calendar.getInstance().getTimeInMillis() - intermediateTime));
     }
 
     @Test
@@ -48,9 +48,9 @@ public class PointTest {
 
         long result2 = points2.stream()
                 .map(Point::abs).filter(aDouble -> aDouble > 10.0).count();
-        System.out.println("Count of points with abs > 10: " + result);
-        System.out.println("Time spent: " + (intermediateTime - startTime));
-        System.out.println("Count of points with abs > 10: " + result2);
-        System.out.println("Time spent: " + (Calendar.getInstance().getTimeInMillis() - intermediateTime));
+        System.out.println("[Parallel stream mode] Count of points with abs > 10: " + result);
+        System.out.println("[Parallel stream mode] Time spent: " + (intermediateTime - startTime));
+        System.out.println("[  Simple stream mode] Count of points with abs > 10: " + result2);
+        System.out.println("[  Simple stream mode] Time spent: " + (Calendar.getInstance().getTimeInMillis() - intermediateTime));
     }
 }
