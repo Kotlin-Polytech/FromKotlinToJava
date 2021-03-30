@@ -31,9 +31,13 @@ class ComponentsView : View("JavaFX components") {
                     spacer()
                     vbox {
                         spacer()
-                        circle(radius = 20.0)
+                        circle(radius = 20.0) {
+                            fill = c(red = 0.5, green = 0.0, blue = 0.0)
+                        }
                         spacer()
-                        rectangle(width = 20.0, height = 20.0)
+                        rectangle(width = 20.0, height = 20.0)  {
+                            fill = c(red = 0.0, green = 0.0, blue = 0.5)
+                        }
                         spacer()
                     }
                     spacer()
