@@ -114,9 +114,20 @@ public class Some {
 package test;
 
 public class SomeClass {
+    private int x = 3;
+    int y = 4;
+    
+    public void foo() {
+        System.out.println(x); // Ok (same class)
+    }
 }
 
 /* package-private */ class AnotherClass {
+    public void bar() {
+        SomeClass sc = new SomeClass(); // Ok (public)
+        System.out.println(sc.x); // ERROR! (private, access from another class)
+        System.out.println(sc.y); // Ok (package private, same package)
+    }
 }
 ----
 
@@ -166,6 +177,7 @@ public class SomeClass {
         System.out.println(x); // ERROR (receiver required!)
         SomeClass sc = new SomeClass();
         System.out.println(sc.x); // Ok (explicit receiver)
+        System.out.println("123".x); // ERROR (incorrect explicit receiver)
     }        
 }
 ----
