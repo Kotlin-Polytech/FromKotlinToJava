@@ -35,7 +35,7 @@
 ----
     public static void foo(Iterable<String> container) {
         for (String element: container) { 
-            bar(element)
+            bar(element);
         }
     }
 ----
@@ -59,3 +59,51 @@ public interface Iterator<E> {
     void remove(); // Удаляет из коллекции элемент, который вернул последний вызов next
 }
 ----
+
+Порядок ручного использования итератора в общем случае выглядит так:
+
+1. Создать итератор с помощью вызова `iterator()`.
+2. Проверить, есть ли следующий элемент `hasNext()`. Если его нет -- перебор закончен.
+3. Достать следующий элемент `next()`.
+4. Сделать необходимую его обработку. Если для данного элемента это требуется, его можно удалить вызовом метода `remove()`.
+5. Вернуться к пункту 2.
+
+Всё то же самое можно выполнить с помощью обычного цикла `for-each`, кроме удаления элемента.
+
+[source,java]
+----
+    public static void foo(Iterable<String> container) {
+        for (String element: container) { 
+            bar(element);
+        }
+        // Is equivalent to
+        Iterator<String> it = container.iterator();
+        while (it.hasNext()) {
+            String element = it.next();
+            bar(element);
+        }
+    }
+----
+
+Важно, однако, отметить, что удалить элемент в цикле for-each невозможно. Например:
+
+[source,java]
+----
+    public static void foo(Collection<String> container) {
+        Iterator<String> it = container.iterator();
+        while (it.hasNext()) {
+            String element = it.next();
+            if (condition(element)) it.remove(); 
+        }
+        // Is NOT equivalent to
+        for (String element: container) { 
+            if (condition(element)) {
+                container.remove(element); // Produces ConcurrentModificationException
+            }
+        }
+        // However, it's possible...
+        container.removeIf(::condition);
+    }
+----
+
+
